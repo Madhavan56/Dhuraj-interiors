@@ -59,9 +59,9 @@ export function Header() {
           <div className="container-page flex h-9 items-center justify-between gap-6 text-[0.6875rem] tracking-wide">
             <p className="flex items-center gap-2.5">
               <span className="size-1.5 rounded-full bg-brass-300" aria-hidden="true" />
-              Quick delivery in 2 days, standard in 4 to 6
+              Interior design &amp; custom woodwork in Thanjavur
               <span className="hidden text-cream/30 sm:inline">·</span>
-              <span className="hidden sm:inline">Trade pricing available</span>
+              <span className="hidden sm:inline">Since 1987</span>
             </p>
             <a
               href={business.phoneHref}
@@ -83,7 +83,7 @@ export function Header() {
           <div className="container-page flex h-[4.5rem] items-center justify-between gap-4 lg:h-[5rem]">
             <a
               href="#home"
-              aria-label="Laghara Hardwares — home"
+              aria-label="Dhuraj Interiors — home"
               className="rounded-lg transition-opacity hover:opacity-85"
             >
               <Logo tone={light ? "light" : "dark"} />
@@ -109,11 +109,11 @@ export function Header() {
             <div className="flex items-center gap-2.5">
               <a
                 href={whatsappLink(
-                  "Hello Laghara Hardwares, I'd like to enquire about your materials.",
+                  "Hello Dhuraj Interiors, I'd like to discuss an interior project.",
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Chat with Laghara Hardwares on WhatsApp"
+                aria-label="Chat with Dhuraj Interiors on WhatsApp"
                 className={`grid size-10 place-items-center rounded-full border transition-all hover:scale-105 ${
                   light
                     ? "border-cream/25 text-cream hover:border-cream/60 hover:bg-cream/10"
@@ -128,7 +128,7 @@ export function Header() {
                   light ? "btn-light" : "btn-primary"
                 }`}
               >
-                Enquire
+                Start a project
                 <Icon name="arrowUpRight" className="size-3.5" />
               </a>
               <button
@@ -203,7 +203,7 @@ export function Header() {
           <div className="mt-8 space-y-5 text-sm">
             <a
               href={whatsappLink(
-                "Hello Laghara Hardwares, I'd like to enquire about your materials.",
+                "Hello Dhuraj Interiors, I'd like to discuss an interior project.",
               )}
               target="_blank"
               rel="noopener noreferrer"

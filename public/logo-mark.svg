@@ -4,16 +4,15 @@
       <stop stop-color="#2F1F63"/>
       <stop offset="1" stop-color="#1D1340"/>
     </linearGradient>
-    <linearGradient id="grain" x1="78" y1="44" x2="170" y2="200" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#D5CBFB"/>
-      <stop offset="1" stop-color="#957BEE"/>
+    <linearGradient id="grain" x1="70" y1="52" x2="206" y2="204" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F0EAFE"/>
+      <stop offset="1" stop-color="#B8A6F6"/>
     </linearGradient>
   </defs>
   <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#bg)"/>
-  <path d="M68 52H96V156H164V184H68V52Z" fill="url(#grain)"/>
-  <path d="M98 76H130V156H170V182H98V76Z" fill="#F4F1FE" fill-opacity="0.2"/>
-  <path d="M157 52H185V181C185 191.493 176.493 200 166 200H132V171H154C157.314 171 160 168.314 160 165V52H157Z" fill="#B8A6F6"/>
-  <path d="M50 196L127 122H162L87 196H50Z" fill="#B8A6F6" fill-opacity="0.9"/>
-  <path d="M90 60C110 44 164 44 184 60" stroke="#E9E3FD" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
-  <path d="M58 154H149" stroke="#E9E3FD" stroke-width="10" stroke-linecap="round" opacity="0.35"/>
+  <path d="M78 54H118C174 54 208 87 208 128C208 169 174 202 118 202H78" stroke="url(#grain)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M78 54V202" stroke="#F4F1FE" stroke-width="17" stroke-linecap="round"/>
+  <path d="M128 202V132C128 113 141 100 159 100C177 100 190 113 190 132V202" stroke="#D8B98E" stroke-width="9" stroke-linecap="round"/>
+  <path d="M151 190V137" stroke="#D8B98E" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+  <path d="M96 72H132C164 72 181 92 181 114" stroke="#E9E3FD" stroke-width="7" stroke-linecap="round" opacity="0.35"/>
 </svg>

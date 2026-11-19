@@ -3,7 +3,7 @@ import { SectionHeading } from "./ui/SectionHeading";
 import { Icon } from "./ui/Icons";
 import { business } from "../data/site";
 
-const values = ["Trade-grade stock", "GST-inclusive pricing", "Delivery on schedule"];
+const values = ["Founded in 1987", "5-year warranty", "Lifelong support"];
 
 export function About() {
   return (
@@ -18,10 +18,10 @@ export function About() {
               />
               <div className="relative overflow-hidden bg-cream-deep">
                 <img
-                  src="/images/about.jpg"
-                  alt="Timber and steel staircase in a bright interior"
-                  width={1200}
-                  height={1800}
+                  src="/images/about-studio.png"
+                  alt="Softly lit interior with a lounge chair, side table and timber floor"
+                  width={635}
+                  height={639}
                   loading="lazy"
                   decoding="async"
                   className="aspect-[4/5] w-full object-cover"
@@ -30,10 +30,10 @@ export function About() {
 
               <div className="absolute -bottom-8 right-4 w-[42%] max-w-[13rem] overflow-hidden border-[6px] border-cream bg-cream-deep shadow-xl sm:-right-6">
                 <img
-                  src="/images/categories/mica-laminates-960.jpg"
-                  alt="Marble-pattern laminate surface detail"
-                  width={960}
-                  height={720}
+                  src="/images/gallery-courtyard.jpg"
+                  alt="Warm entry courtyard with terracotta flooring and timber doors"
+                  width={900}
+                  height={504}
                   loading="lazy"
                   decoding="async"
                   className="aspect-square w-full object-cover"
@@ -46,7 +46,7 @@ export function About() {
                 <Icon name="store" className="size-5" />
               </span>
               <p className="text-xs leading-relaxed text-ink-500">
-                Visit the showroom
+                Visit the studio
                 <span className="block text-[0.8125rem] font-medium text-ink-900">
                   {business.hours}
                 </span>
@@ -58,12 +58,14 @@ export function About() {
             <Reveal>
               <SectionHeading
                 index="01"
-                eyebrow="About Laghara"
+                eyebrow="About Dhuraj"
                 title={
                   <>
-                    The whole material list,
-                    <br className="hidden sm:block" /> chosen in{" "}
-                    <em className="font-light italic text-brass-600">one visit.</em>
+                    A Thanjavur studio,
+                    <br className="hidden sm:block" /> crafting homes{" "}
+                    <em className="font-light italic text-brass-600 whitespace-nowrap">
+                      since 1987.
+                    </em>
                   </>
                 }
               />
@@ -72,24 +74,23 @@ export function About() {
             <div className="mt-7 space-y-5 text-[0.9375rem] leading-relaxed text-ink-700/85">
               <Reveal delay={80}>
                 <p>
-                  Laghara Hardwares supplies interior and furniture materials to the people
-                  who build and fit out homes and workspaces across Tamil Nadu — carpenters,
-                  builders, contractors and designers.
+                  Dhuraj Interiors was founded in 1987 by Dhurai Raj, with a simple belief: a
+                  well-made interior should feel personal, practical and built to last.
                 </p>
               </Reveal>
               <Reveal delay={140}>
                 <p>
-                  The range covers thirteen categories: plywood and mica laminates, kitchen
-                  and wardrobe hardware, hinges, drawer systems and channels, handles,
-                  sliding systems, locks, aluminium profiles and the small accessories that
-                  finish a job. It is stock chosen for real projects, not a display.
+                  From our studio and workshop in Thanjavur, we design and build modular
+                  kitchens, wardrobes, wooden flooring, false ceilings, mosquito netlon and
+                  custom woodwork for homes and businesses across Trichy, Mannargudi and
+                  Pudukkottai.
                 </p>
               </Reveal>
               <Reveal delay={200}>
                 <p>
-                  Come to the showroom in Kalainyar Nagar to see and compare the materials in
-                  person. Prices include GST, unopened stock can be returned, and delivery is
-                  scheduled — so a fit-out can be planned around it.
+                  Every project is handled by one team, from the first measurement and drawing
+                  to the final fit and finish. You stay involved at every step — and we stay
+                  available long after handover.
                 </p>
               </Reveal>
             </div>
@@ -112,7 +113,7 @@ export function About() {
             <Reveal delay={320}>
               <div className="mt-9 border-l-2 border-brass-500 pl-5">
                 <p className="font-display text-[1.35rem] leading-snug text-ink-900 sm:text-[1.5rem]">
-                  Trade-grade stock, honest pricing, delivered on schedule.
+                  Designed around you. Built to last.
                 </p>
                 <p className="mt-2 text-[0.6875rem] uppercase tracking-[0.18em] text-ink-500">
                   How we work

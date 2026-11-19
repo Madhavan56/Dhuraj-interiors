@@ -12,17 +12,17 @@ export function WhyUs() {
             <div className="lg:sticky lg:top-32">
               <Reveal>
                 <SectionHeading
-                  index="06"
-                  eyebrow="Why Laghara"
+                  index="04"
+                  eyebrow="Why Dhuraj"
                   title={
                     <>
-                      Built on stock.
+                      Built on experience.
                       <br />
-                      Run on{" "}
-                      <em className="font-light italic text-brass-600">trust.</em>
+                      Finished with{" "}
+                      <em className="font-light italic text-brass-600">care.</em>
                     </>
                   }
-                  description="The things that matter when you're buying material for a project — and the reasons our trade customers come back."
+                  description="The details clients notice long after the dust settles — and the reasons they come back."
                 />
               </Reveal>
 
@@ -38,7 +38,7 @@ export function WhyUs() {
                   </span>
                   <span>
                     <span className="block text-xs font-semibold text-ink-900">
-                      Visit the Thanjavur showroom
+                      Visit the Thanjavur studio
                     </span>
                     <span className="mt-0.5 block text-[0.6875rem] text-ink-500">
                       {business.hours}
@@ -81,15 +81,15 @@ export function WhyUs() {
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-lg bg-cream-deep/70 px-5 py-4">
                 <p className="flex items-center gap-2 text-xs text-ink-700">
                   <Icon name="check" className="size-4 text-iris-700" strokeWidth={2} />
-                  Prices include GST
+                  Design &amp; installation in-house
                 </p>
                 <p className="flex items-center gap-2 text-xs text-ink-700">
                   <Icon name="check" className="size-4 text-iris-700" strokeWidth={2} />
-                  Unopened stock returnable
+                  5-year workmanship warranty
                 </p>
                 <p className="flex items-center gap-2 text-xs text-ink-700">
                   <Icon name="check" className="size-4 text-iris-700" strokeWidth={2} />
-                  Delivery across Tamil Nadu
+                  Serving Thanjavur &amp; nearby
                 </p>
               </div>
             </Reveal>

@@ -1,9 +1,12 @@
 import { services } from "../data/site";
+import { useEnquiry } from "../context/EnquiryContext";
 import { Icon } from "./ui/Icons";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeading } from "./ui/SectionHeading";
 
 export function Services() {
+  const { requestEnquiry } = useEnquiry();
+
   return (
     <section id="services" className="relative overflow-hidden bg-plum-950 py-24 text-cream md:py-32">
       <div
@@ -20,30 +23,30 @@ export function Services() {
           <div className="lg:col-span-5">
             <Reveal>
               <SectionHeading
-                index="05"
+                index="02"
                 eyebrow="What we do"
                 tone="light"
                 title={
                   <>
-                    From the quote
-                    <br className="hidden sm:block" /> to the{" "}
-                    <em className="font-light italic text-brass-300">doorstep.</em>
+                    From the first measure
+                    <br className="hidden sm:block" /> to the final{" "}
+                    <em className="font-light italic text-brass-300">fit.</em>
                   </>
                 }
-                description="More than a counter. We supply, price and deliver the materials a fit-out runs on — and stay available after the order is placed."
+                description="Six services, one team. We design, make and install interiors that are made for the way you live."
               />
             </Reveal>
 
             <Reveal delay={140}>
               <div className="mt-9 rounded-lg border border-cream/12 p-6">
                 <p className="font-display text-[1.35rem] leading-snug text-cream">
-                  Need a price for a whole project? We usually reply within a business day.
+                  Planning a kitchen, wardrobe or a full home interior?
                 </p>
                 <a
                   href="#contact"
                   className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-brass-300 transition-colors hover:text-cream"
                 >
-                  Send your material list
+                  Book a consultation
                   <Icon name="arrowRight" className="size-3.5" />
                 </a>
               </div>
@@ -69,6 +72,20 @@ export function Services() {
                     <p className="mt-2 text-[0.8125rem] leading-relaxed text-cream/55">
                       {service.description}
                     </p>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        requestEnquiry(
+                          service.title,
+                          `I'd like to discuss ${service.title.toLowerCase()} for my project.`,
+                          service.title,
+                        )
+                      }
+                      className="mt-4 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-brass-300 transition-colors hover:text-cream"
+                    >
+                      Enquire
+                      <Icon name="arrowRight" className="size-3.5" />
+                    </button>
                   </div>
                 </Reveal>
               ))}

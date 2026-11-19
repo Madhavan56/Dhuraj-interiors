@@ -74,6 +74,31 @@ const paths: Record<string, string[]> = {
     "m8.4 15.6-2.8 2.8",
   ],
   grid: ["M3 3h7v7H3z", "M14 3h7v7h-7z", "M14 14h7v7h-7z", "M3 14h7v7H3z"],
+  award: [
+    "M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z",
+    "m8.2 13.5-1.2 8 5-2.8 5 2.8-1.2-8",
+  ],
+  kitchen: [
+    "M3 10h18v10H3z",
+    "M6 10V5h12v5",
+    "M7 15h.01",
+    "M11 15h.01",
+    "M15 15h.01",
+    "M19 15h.01",
+  ],
+  wardrobe: [
+    "M4 3h16v18H4z",
+    "M12 3v18",
+    "M9 12h.01",
+    "M15 12h.01",
+  ],
+  floor: ["M3 6h18", "M3 12h18", "M3 18h18", "M9 6v6", "M15 12v6"],
+  ceiling: ["M3 5h18", "M3 5v3", "m7 8 3 5", "M17 8l-3 5", "M8 13h8"],
+  hammer: [
+    "m14 4 6 6-3 3-6-6z",
+    "M11 7 3 15l4 4 8-8",
+    "m13 9 3 3",
+  ],
 };
 
 export type IconName = keyof typeof paths;

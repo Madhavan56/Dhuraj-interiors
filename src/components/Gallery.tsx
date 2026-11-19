@@ -46,16 +46,16 @@ export function Gallery() {
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <Reveal>
             <SectionHeading
-              index="07"
+              index="05"
               eyebrow="Gallery"
               title={
                 <>
-                  The material,
-                  <br className="hidden sm:block" /> in its{" "}
-                  <em className="font-light italic text-brass-600">setting.</em>
+                  A sense of
+                  <br className="hidden sm:block" /> the{" "}
+                  <em className="font-light italic text-brass-600">work.</em>
                 </>
               }
-              description="A look at the ranges we stock and the fit-outs they're specified for — from the sheet on the bench to the handle on the door."
+              description="Kitchens, wardrobes, flooring and woodwork — the materials, finishes and details we bring together."
             />
           </Reveal>
           <Reveal delay={100} className="shrink-0">
@@ -105,8 +105,8 @@ export function Gallery() {
         </div>
 
         <p className="mt-6 text-[0.6875rem] leading-relaxed text-ink-500">
-          Images show the material categories and interior settings these ranges are supplied
-          for. Ask the showroom to see current stock in person.
+          Images are representative of the styles and finishes we work with. Ask at the
+          studio to see completed project photography.
         </p>
       </div>
 

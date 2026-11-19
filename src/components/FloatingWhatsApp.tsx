@@ -1,14 +1,32 @@
+import { useEffect, useState } from "react";
 import { whatsappLink } from "../data/site";
 import { WhatsAppIcon } from "./ui/Icons";
 
 export function FloatingWhatsApp() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.55);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <a
-      href={whatsappLink("Hello Laghara Hardwares, I'd like to enquire about your materials.")}
+      href={whatsappLink("Hello Dhuraj Interiors, I'd like to discuss an interior project.")}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with Laghara Hardwares on WhatsApp"
-      className="group fixed bottom-5 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-[#128c4a] text-white shadow-[0_12px_30px_-8px_rgba(18,140,74,0.6)] transition-transform duration-300 hover:scale-105 hover:bg-[#0f7a40] sm:bottom-6 sm:right-6"
+      aria-label="Chat with Dhuraj Interiors on WhatsApp"
+      className={`group fixed bottom-5 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-[#128c4a] text-white shadow-[0_12px_30px_-8px_rgba(18,140,74,0.6)] transition-all duration-500 hover:scale-105 hover:bg-[#0f7a40] sm:bottom-6 sm:right-6 ${
+        visible
+          ? "translate-y-0 opacity-100"
+          : "pointer-events-none translate-y-3 opacity-0"
+      }`}
     >
       <span
         className="absolute inset-0 -z-10 animate-[ping_2.6s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-[#128c4a]/30 motion-reduce:hidden"

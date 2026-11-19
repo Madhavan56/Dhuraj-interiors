@@ -1,12 +1,11 @@
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
-import { Categories } from "./components/Categories";
-import { Featured } from "./components/Featured";
-import { Brands } from "./components/Brands";
 import { Services } from "./components/Services";
+import { Process } from "./components/Process";
 import { WhyUs } from "./components/WhyUs";
 import { Gallery } from "./components/Gallery";
+import { Testimonials } from "./components/Testimonials";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { FloatingWhatsApp } from "./components/FloatingWhatsApp";
@@ -25,12 +24,11 @@ export default function App() {
       <main id="main">
         <Hero />
         <About />
-        <Categories />
-        <Featured />
-        <Brands />
         <Services />
+        <Process />
         <WhyUs />
         <Gallery />
+        <Testimonials />
         <Contact />
       </main>
       <Footer />

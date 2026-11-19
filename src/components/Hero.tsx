@@ -10,7 +10,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <img
           src="/images/hero.jpg"
-          alt="Warm timber-panelled living room and fitted kitchen"
+          alt="Warm timber-panelled living room with leather seating and a fitted kitchen"
           width={1920}
           height={1280}
           fetchPriority="high"
@@ -31,22 +31,22 @@ export function Hero() {
         <div className="max-w-4xl">
           <p className="hero-fade eyebrow text-cream/65" style={{ "--delay": "150ms" } as React.CSSProperties}>
             <span className="size-1.5 bg-brass-300" aria-hidden="true" />
-            Thanjavur · Interior &amp; furniture materials
+            Thanjavur · Interior design &amp; custom woodwork
           </p>
 
           <h1 className="mt-7 text-[clamp(2.7rem,7.2vw,6.2rem)] leading-[0.96] tracking-[-0.03em]">
             <span className="hero-rise">
-              <span style={{ "--delay": "220ms" } as React.CSSProperties}>Everything for</span>
+              <span style={{ "--delay": "220ms" } as React.CSSProperties}>Spaces made</span>
             </span>
             <span className="hero-rise">
-              <span style={{ "--delay": "330ms" } as React.CSSProperties}>the build.</span>
+              <span style={{ "--delay": "330ms" } as React.CSSProperties}>for the way</span>
             </span>
             <span className="hero-rise">
               <span
                 className="text-[0.86em] font-light italic text-brass-300"
                 style={{ "--delay": "440ms" } as React.CSSProperties}
               >
-                Delivered fast.
+                you live.
               </span>
             </span>
           </h1>
@@ -55,21 +55,21 @@ export function Hero() {
             className="hero-fade mt-7 max-w-xl text-[0.9375rem] leading-relaxed text-cream/75 sm:text-base"
             style={{ "--delay": "600ms" } as React.CSSProperties}
           >
-            Plywood, laminates and every fitting in between — thirteen categories of
-            trade-grade material, in stock at our Thanjavur showroom and delivered across
-            Tamil Nadu.
+            For more than 35 years, Dhuraj Interiors has designed and built modular kitchens,
+            wardrobes and custom woodwork for homes across Thanjavur, Trichy, Mannargudi and
+            Pudukkottai.
           </p>
 
           <div
             className="hero-fade mt-9 flex flex-wrap items-center gap-3"
             style={{ "--delay": "720ms" } as React.CSSProperties}
           >
-            <a href="#products" className="btn btn-light">
-              Explore products
+            <a href="#contact" className="btn btn-light">
+              Start your project
               <Icon name="arrowRight" className="size-4" />
             </a>
-            <a href="#contact" className="btn btn-outline">
-              Contact us
+            <a href="#gallery" className="btn btn-outline">
+              View our work
               <Icon name="arrowUpRight" className="size-4" />
             </a>
           </div>

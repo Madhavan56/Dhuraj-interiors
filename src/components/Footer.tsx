@@ -1,4 +1,4 @@
-import { business, categories, navItems, whatsappLink } from "../data/site";
+import { business, navItems, services, whatsappLink } from "../data/site";
 import { Icon, WhatsAppIcon } from "./ui/Icons";
 import { Logo } from "./ui/Logo";
 
@@ -14,7 +14,7 @@ export function Footer() {
       <div className="container-page relative">
         <div className="grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-10 lg:py-20">
           <div className="lg:col-span-4">
-            <a href="#home" aria-label="Laghara Hardwares — home" className="inline-block">
+            <a href="#home" aria-label="Dhuraj Interiors — home" className="inline-block">
               <Logo tone="light" />
             </a>
             <p className="mt-5 max-w-sm text-[0.8125rem] leading-relaxed text-cream/55">
@@ -23,7 +23,9 @@ export function Footer() {
 
             <div className="mt-6 flex flex-wrap gap-2.5">
               <a
-                href={whatsappLink("Hello Laghara Hardwares, I'd like to enquire about your materials.")}
+                href={whatsappLink(
+                  "Hello Dhuraj Interiors, I'd like to discuss an interior project.",
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-10 items-center gap-2 rounded-full border border-cream/20 px-4 text-xs font-medium transition-colors hover:border-cream/50 hover:bg-cream/5"
@@ -61,33 +63,25 @@ export function Footer() {
 
           <div className="lg:col-span-3">
             <h3 className="text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-brass-300">
-              Product categories
+              Services
             </h3>
-            <ul className="mt-4 grid grid-cols-1 gap-x-4 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-1">
-              {categories.slice(0, 7).map((category) => (
-                <li key={category.slug}>
+            <ul className="mt-4 space-y-2.5">
+              {services.map((service) => (
+                <li key={service.title}>
                   <a
-                    href="#products"
+                    href="#services"
                     className="text-[0.8125rem] text-cream/60 transition-colors hover:text-cream"
                   >
-                    {category.name}
+                    {service.title}
                   </a>
                 </li>
               ))}
-              <li>
-                <a
-                  href="#products"
-                  className="text-[0.8125rem] font-medium text-cream/85 transition-colors hover:text-cream"
-                >
-                  All 13 categories
-                </a>
-              </li>
             </ul>
           </div>
 
           <div className="lg:col-span-3">
             <h3 className="text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-brass-300">
-              Visit the showroom
+              Visit the studio
             </h3>
             <ul className="mt-4 space-y-3 text-[0.8125rem] text-cream/60">
               <li>
@@ -124,25 +118,18 @@ export function Footer() {
                 {business.hours}
               </li>
             </ul>
-
-            <a
-              href={business.websiteHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 text-[0.8125rem] text-cream/70 underline decoration-cream/25 underline-offset-4 transition-colors hover:text-cream"
-            >
-              {business.website}
-              <Icon name="arrowUpRight" className="size-3.5" />
-            </a>
+            <p className="mt-4 text-[0.6875rem] leading-relaxed text-cream/35">
+              {business.serviceAreas}
+            </p>
           </div>
         </div>
 
         <div className="flex flex-col gap-4 border-t border-cream/10 py-6 text-[0.6875rem] text-cream/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} Laghara Hardwares. All rights reserved.</p>
+          <p>© {year} Dhuraj Interiors. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <p>All prices are inclusive of GST.</p>
+            <p>Interior design &amp; custom woodwork, Thanjavur</p>
             <a href="#contact" className="transition-colors hover:text-cream">
-              Thanjavur, Tamil Nadu
+              Start a project
             </a>
             <a
               href="#home"

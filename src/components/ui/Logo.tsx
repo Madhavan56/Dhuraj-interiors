@@ -29,14 +29,14 @@ export function Logo({ tone = "dark", compact = false }: LogoProps) {
               light ? "text-cream" : "text-ink-950"
             }`}
           >
-            Laghara
+            Dhuraj
           </span>
           <span
             className={`mt-1 block text-[0.58rem] font-medium uppercase tracking-[0.3em] ${
               light ? "text-cream/60" : "text-ink-500"
             }`}
           >
-            Hardwares
+            Interiors
           </span>
         </span>
       )}

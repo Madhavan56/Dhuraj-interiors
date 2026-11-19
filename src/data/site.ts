@@ -1,24 +1,24 @@
 export const business = {
-  name: "Laghara Hardwares",
-  shortName: "Laghara",
-  tagline: "Interior & furniture materials",
+  name: "Dhuraj Interiors",
+  shortName: "Dhuraj",
+  tagline: "Interior design & custom woodwork",
   description:
-    "Interior and furniture materials for builders, carpenters and designers. Trade-grade stock, honest pricing, delivered on schedule across Tamil Nadu.",
+    "Interior design, modular kitchens, wardrobes and custom woodwork, designed and built in Thanjavur since 1987.",
   phone: "+91 73737 30340",
   phoneHref: "tel:+917373730340",
   whatsapp: "917373730340",
   email: "dhuraimuthukumar@hotmail.com",
   address: "1243, Murugan Kovil Street, Kalainyar Nagar, Thanjavur 613 004",
   locality: "Thanjavur, Tamil Nadu",
-  hours: "Mon to Sat, 9 AM to 6 PM",
-  website: "www.dhurajinterior.in",
-  websiteHref: "https://www.dhurajinterior.in",
+  hours: "Mon–Sat, 8 AM–8 PM · Sun, 8 AM–5 PM",
+  serviceAreas: "Thanjavur · Trichy · Mannargudi · Pudukkottai",
+  founded: "1987",
   mapsHref:
     "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent("Laghara Hardwares, 1243 Murugan Kovil Street, Kalainyar Nagar, Thanjavur 613004"),
+    encodeURIComponent("Dhuraj Interiors, 1243 Murugan Kovil Street, Kalainyar Nagar, Thanjavur 613004"),
   mapEmbed:
     "https://www.google.com/maps?q=" +
-    encodeURIComponent("1243, Murugan Kovil Street, Kalainyar Nagar, Thanjavur 613004") +
+    encodeURIComponent("Dhuraj Interiors, 1243 Murugan Kovil Street, Kalainyar Nagar, Thanjavur 613004") +
     "&z=15&output=embed",
 } as const;
 
@@ -27,252 +27,124 @@ export type NavItem = { label: string; href: string };
 export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Products", href: "#products" },
-  { label: "Brands", href: "#brands" },
   { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
   { label: "Gallery", href: "#gallery" },
   { label: "Contact", href: "#contact" },
-];
-
-export type Category = {
-  slug: string;
-  name: string;
-  group: "Surfaces" | "Kitchen" | "Wardrobe" | "Fittings";
-  description: string;
-  image: string;
-  alt: string;
-};
-
-export const categories: Category[] = [
-  {
-    slug: "plywood",
-    name: "Plywood",
-    group: "Surfaces",
-    description: "Sheet material for carcasses, wardrobes and full-room fit-outs.",
-    image: "/images/categories/plywood-960.jpg",
-    alt: "Plywood sheet showing its layered cross-section",
-  },
-  {
-    slug: "mica-laminates",
-    name: "Mica Laminates",
-    group: "Surfaces",
-    description: "Decorative surfaces that set the finish of a room.",
-    image: "/images/categories/mica-laminates-960.jpg",
-    alt: "White marble-pattern laminate surface with grey veining",
-  },
-  {
-    slug: "kitchen-hardware",
-    name: "Kitchen Hardware",
-    group: "Kitchen",
-    description: "Baskets, organisers and fittings for a fitted kitchen.",
-    image: "/images/categories/kitchen-hardware-960.jpg",
-    alt: "Modern fitted kitchen with handleless cabinetry",
-  },
-  {
-    slug: "wardrobe-hardware",
-    name: "Wardrobe Hardware",
-    group: "Wardrobe",
-    description: "Rails, runners and internal fittings for built-in storage.",
-    image: "/images/categories/wardrobe-hardware-960.jpg",
-    alt: "Built-in white wardrobes with glass-panel doors in a bright bedroom",
-  },
-  {
-    slug: "hinges",
-    name: "Hinges",
-    group: "Fittings",
-    description: "Everyday and soft-close hinges for cabinet doors.",
-    image: "/images/categories/hinges-960.jpg",
-    alt: "Soft-close hinge fitted to a kitchen cabinet door",
-  },
-  {
-    slug: "drawer-systems",
-    name: "Drawer Systems",
-    group: "Kitchen",
-    description: "Drawer boxes and internal organisers, specified as a set.",
-    image: "/images/categories/drawer-systems-960.jpg",
-    alt: "Open kitchen drawer with a wooden cutlery organiser",
-  },
-  {
-    slug: "drawer-channels",
-    name: "Drawer Channels",
-    group: "Fittings",
-    description: "Slide rails for smooth-running drawers at every size.",
-    image: "/images/categories/drawer-channels-960.jpg",
-    alt: "Drawer slide rails with mounting wheel detail",
-  },
-  {
-    slug: "handles-knobs",
-    name: "Handles & Knobs",
-    group: "Fittings",
-    description: "Pulls, levers and knobs that finish the detail.",
-    image: "/images/categories/handles-knobs-960.jpg",
-    alt: "Brushed steel lever handle with keyed lock",
-  },
-  {
-    slug: "sliding-systems",
-    name: "Sliding Systems",
-    group: "Wardrobe",
-    description: "Sliding hardware for wardrobes, doors and partitions.",
-    image: "/images/categories/sliding-systems-960.jpg",
-    alt: "Living room with large sliding glass doors opening to a patio",
-  },
-  {
-    slug: "locks-security",
-    name: "Locks & Security",
-    group: "Fittings",
-    description: "Locks and security fittings for doors and cabinets.",
-    image: "/images/categories/locks-security-960.jpg",
-    alt: "Multi-point security door lock with lever handle and key",
-  },
-  {
-    slug: "aluminium-profiles",
-    name: "Aluminium Profiles",
-    group: "Surfaces",
-    description: "Extruded profiles for edges, frames and partitions.",
-    image: "/images/categories/aluminium-profiles-960.jpg",
-    alt: "Stacked extruded aluminium profiles",
-  },
-  {
-    slug: "interior-hardware",
-    name: "Interior Hardware",
-    group: "Fittings",
-    description: "Screws, fasteners and the small parts that hold it together.",
-    image: "/images/categories/interior-hardware-960.jpg",
-    alt: "Sorted compartments of steel wood screws",
-  },
-  {
-    slug: "furniture-accessories",
-    name: "Furniture Accessories",
-    group: "Wardrobe",
-    description: "Knobs, feet, organisers and finishing touches.",
-    image: "/images/categories/furniture-accessories-960.jpg",
-    alt: "Small wooden drawer unit with ceramic knobs",
-  },
-];
-
-export const categoryGroups = ["All", "Surfaces", "Kitchen", "Wardrobe", "Fittings"] as const;
-
-export type FeaturedRange = {
-  name: string;
-  category: string;
-  description: string;
-  image: string;
-  alt: string;
-};
-
-export const featuredRanges: FeaturedRange[] = [
-  {
-    name: "Plywood",
-    category: "Sheets & boards",
-    description: "Carcasses, wardrobes and full-room fit-outs start here.",
-    image: "/images/categories/plywood-960.jpg",
-    alt: "Plywood sheet showing its layered cross-section",
-  },
-  {
-    name: "Mica Laminates",
-    category: "Surfaces",
-    description: "Choose the finish that sets the tone of the room.",
-    image: "/images/categories/mica-laminates-960.jpg",
-    alt: "White marble-pattern laminate surface with grey veining",
-  },
-  {
-    name: "Kitchen Hardware",
-    category: "Kitchen",
-    description: "Baskets, hinges and organisers, specified together.",
-    image: "/images/categories/kitchen-hardware-960.jpg",
-    alt: "Modern fitted kitchen with handleless cabinetry",
-  },
-  {
-    name: "Handles & Knobs",
-    category: "Fittings",
-    description: "The last detail — and the first thing you touch.",
-    image: "/images/categories/handles-knobs-960.jpg",
-    alt: "Brushed steel lever handle with keyed lock",
-  },
 ];
 
 export type Service = {
   title: string;
   description: string;
-  icon: "tag" | "truck" | "store" | "clipboard" | "receipt" | "returns";
+  icon: "kitchen" | "wardrobe" | "floor" | "ceiling" | "shield" | "hammer";
 };
 
 export const services: Service[] = [
   {
-    title: "Trade & bulk pricing",
+    title: "Modular kitchens",
     description:
-      "Project quantities of plywood, laminates and hardware, priced for builders and carpenters.",
-    icon: "tag",
+      "Bespoke kitchens planned around how you cook, with practical storage and finishes that wear well.",
+    icon: "kitchen",
   },
   {
-    title: "Delivery across Tamil Nadu",
-    description: "Quick delivery in 2 days, standard in 4 to 6 days.",
-    icon: "truck",
-  },
-  {
-    title: "Showroom consultation",
+    title: "Wardrobes & storage",
     description:
-      "See and compare materials in person at our Thanjavur showroom before you commit.",
-    icon: "store",
+      "Fitted wardrobes and storage that make the most of every wall, corner and ceiling height.",
+    icon: "wardrobe",
   },
   {
-    title: "Full project supply",
+    title: "Wooden flooring",
     description:
-      "Tell us what the fit-out needs and we'll quote the material list in project quantities.",
-    icon: "clipboard",
+      "Warm, hard-wearing wooden floors, supplied and laid with a finish made to last.",
+    icon: "floor",
   },
   {
-    title: "GST invoicing",
-    description: "Every price includes GST, and every order comes with a GST invoice.",
-    icon: "receipt",
+    title: "False ceilings",
+    description:
+      "Clean ceiling lines, cove lighting and concealed services, detailed to suit the room.",
+    icon: "ceiling",
   },
   {
-    title: "Easy returns",
-    description: "Unopened stock can be returned. Talk to us and we'll sort it out.",
-    icon: "returns",
+    title: "Mosquito netlon",
+    description:
+      "Made-to-measure netlon systems for windows and doors — effective, neat and easy to live with.",
+    icon: "shield",
+  },
+  {
+    title: "Custom woodwork",
+    description:
+      "Bespoke furniture, panelling and joinery, made in our workshop and fitted on site.",
+    icon: "hammer",
+  },
+];
+
+export const stats = [
+  { value: "1987", label: "Established in Thanjavur" },
+  { value: "35+", label: "Years of craftsmanship" },
+  { value: "5-year", label: "Workmanship warranty" },
+  { value: "60-day", label: "Typical project completion" },
+];
+
+export const processSteps = [
+  {
+    title: "Planning & concept",
+    description:
+      "We start with your routines, measurements and ideas, then shape a design that fits the space and the budget.",
+  },
+  {
+    title: "Materials & quality",
+    description:
+      "Boards, finishes and fittings are selected together, with quality checks on materials and craftsmanship at every stage.",
+  },
+  {
+    title: "A timeline you can plan around",
+    description:
+      "Once the design is approved, we set out a clear, personalised schedule for each phase — and keep you updated as we build.",
   },
 ];
 
 export type Strength = {
   title: string;
   description: string;
-  icon: "layers" | "shield" | "rupee" | "truck" | "eye" | "refresh";
+  icon: "award" | "layers" | "shield" | "clock" | "refresh" | "sparkle";
 };
 
 export const strengths: Strength[] = [
   {
-    title: "Thirteen categories, one roof",
+    title: "Crafting interiors since 1987",
     description:
-      "From the plywood carcass to the last knob, the whole material list is in one place.",
+      "Founded by Dhurai Raj, our studio has spent more than three decades shaping homes across the region.",
+    icon: "award",
+  },
+  {
+    title: "One team, start to finish",
+    description:
+      "Design, woodwork and installation are handled in-house, so the detail you approve is the detail you get.",
     icon: "layers",
   },
   {
-    title: "Trade-grade stock",
+    title: "Materials chosen to last",
     description:
-      "Materials selected for builders, carpenters and designers working on real projects.",
+      "We specify boards, finishes and fittings for daily life in Tamil Nadu's climate, not just for photographs.",
     icon: "shield",
   },
   {
-    title: "Honest, inclusive pricing",
-    description: "The price you're quoted includes GST. No surprises at the counter.",
-    icon: "rupee",
-  },
-  {
-    title: "Delivery you can plan around",
+    title: "A five-year warranty",
     description:
-      "Quick delivery in 2 days and standard in 4 to 6 days, across Tamil Nadu.",
-    icon: "truck",
+      "Our workmanship is covered for five years — a commitment we can make because we stand behind how we build.",
+    icon: "clock",
   },
   {
-    title: "See it before you buy",
+    title: "Completed in about 60 days",
     description:
-      "Our showroom is open Monday to Saturday so you can handle the material first.",
-    icon: "eye",
-  },
-  {
-    title: "Straightforward returns",
-    description: "Unopened stock can be returned — a simple conversation, not a process.",
+      "Most projects are finished within 60 days, with a schedule agreed before work begins.",
     icon: "refresh",
+  },
+  {
+    title: "Support long after handover",
+    description:
+      "Need an adjustment or a repair years later? You can still call the same team that built your interiors.",
+    icon: "sparkle",
   },
 ];
 
@@ -280,72 +152,82 @@ export type GalleryItem = {
   src: string;
   alt: string;
   caption: string;
-  span: string;
 };
 
 export const gallery: GalleryItem[] = [
   {
     src: "/images/lounge.jpg",
-    alt: "Living room with timber flooring, leather seating and tall windows",
-    caption: "Living & lounge fit-outs",
-    span: "sm:col-span-2 lg:col-span-5 lg:row-span-2",
+    alt: "Warm living room with timber flooring, leather seating and tall windows",
+    caption: "Living & lounge",
   },
   {
-    src: "/images/categories/handles-knobs-960.jpg",
-    alt: "Brushed steel lever handle and lock",
-    caption: "Handles & locks",
-    span: "lg:col-span-3",
+    src: "/images/gallery-kitchen.jpg",
+    alt: "Fitted kitchen with handleless cabinetry and a work island",
+    caption: "Modular kitchens",
   },
   {
-    src: "/images/categories/mica-laminates-960.jpg",
-    alt: "White marble-pattern laminate surface",
-    caption: "Decorative laminates",
-    span: "lg:col-span-2",
-  },
-  {
-    src: "/images/categories/drawer-systems-960.jpg",
-    alt: "Open drawer with a wooden cutlery organiser",
-    caption: "Drawer systems",
-    span: "lg:col-span-2",
+    src: "/images/gallery-wardrobe.jpg",
+    alt: "Built-in wardrobe with glass-panel doors in a bright bedroom",
+    caption: "Wardrobes & storage",
   },
   {
     src: "/images/living.jpg",
-    alt: "Living room with a timber floor and panelled joinery",
-    caption: "Joinery & finishes",
-    span: "lg:col-span-3 lg:row-span-2",
+    alt: "Living room with timber flooring and panelled joinery",
+    caption: "Wooden flooring & joinery",
   },
   {
-    src: "/images/categories/wardrobe-hardware-960.jpg",
-    alt: "Built-in wardrobe with glass-panel doors",
-    caption: "Wardrobe internals",
-    span: "lg:col-span-2",
+    src: "/images/gallery-yellow.jpg",
+    alt: "Living room with a yellow sofa, green wall and layered textiles",
+    caption: "Colour & material",
   },
   {
-    src: "/images/categories/plywood-960.jpg",
-    alt: "Plywood sheet showing its layered cross-section",
-    caption: "Plywood & boards",
-    span: "lg:col-span-2",
+    src: "/images/craft.jpg",
+    alt: "Craftsperson turning a piece of timber on a lathe",
+    caption: "Custom woodwork",
   },
   {
-    src: "/images/categories/kitchen-hardware-960.jpg",
-    alt: "Modern fitted kitchen with handleless cabinetry",
-    caption: "Fitted kitchens",
-    span: "lg:col-span-5",
+    src: "/images/gallery-courtyard.jpg",
+    alt: "Warm entry courtyard with terracotta flooring, timber doors and a bench",
+    caption: "Entrances & courtyards",
+  },
+  {
+    src: "/images/gallery-green.jpg",
+    alt: "Living room with a patterned green wall, timber floor and planting",
+    caption: "Finishes & texture",
   },
 ];
 
-export const stats = [
-  { value: "13", label: "Material categories" },
-  { value: "2", label: "Day quick delivery" },
-  { value: "30%", label: "Trade rates, up to" },
-  { value: "6", label: "Days a week at the showroom" },
+export type Testimonial = {
+  name: string;
+  quote: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    name: "Anandh",
+    quote:
+      "Dhuraj Interior exceeded my expectations with their exceptional design expertise. The team's attention to detail and commitment to quality transformed my space into a true masterpiece.",
+  },
+  {
+    name: "Sebastin",
+    quote:
+      "I hired Dhuraj Interior for wardrobe services. They brought my vision to life with a personalised approach and creative solutions.",
+  },
+  {
+    name: "Malini",
+    quote:
+      "I recently availed Dhuraj Interior's mosquito netlon service and I am happy with the results. The team's expertise is truly commendable.",
+  },
 ];
 
 export const enquiryTypes = [
-  "Product availability",
-  "Trade & bulk pricing",
-  "Delivery",
-  "Showroom visit",
+  "Full home interior",
+  "Modular kitchens",
+  "Wardrobes & storage",
+  "Wooden flooring",
+  "False ceilings",
+  "Mosquito netlon",
+  "Custom woodwork",
   "Something else",
 ] as const;
 

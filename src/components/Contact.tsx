@@ -99,16 +99,16 @@ export function Contact() {
           <div className="lg:col-span-5">
             <Reveal>
               <SectionHeading
-                index="08"
-                eyebrow="Contact & enquiry"
+                index="07"
+                eyebrow="Start a project"
                 title={
                   <>
-                    Let's get your
-                    <br className="hidden sm:block" /> material list{" "}
-                    <em className="font-light italic text-brass-600">sorted.</em>
+                    Let's design a home
+                    <br className="hidden sm:block" /> that{" "}
+                    <em className="font-light italic text-brass-600">fits you.</em>
                   </>
                 }
-                description="Trade pricing, bulk orders, or a question about a fitting — tell us what you need. We usually reply within a business day."
+                description="Tell us what you have in mind — a kitchen, wardrobes or a full home interior. We'll arrange a consultation at our Thanjavur studio or on site."
               />
             </Reveal>
 
@@ -177,7 +177,9 @@ export function Contact() {
                       Hours
                     </span>
                     <span className="mt-1 block text-sm text-ink-900">{business.hours}</span>
-                    <span className="mt-0.5 block text-xs text-ink-500">Closed on Sundays</span>
+                    <span className="mt-0.5 block text-xs text-ink-500">
+                      Consultations at the studio or on site
+                    </span>
                   </span>
                 </div>
               </Reveal>
@@ -186,7 +188,7 @@ export function Contact() {
             <Reveal delay={120}>
               <a
                 href={whatsappLink(
-                  "Hello Laghara Hardwares, I'd like to enquire about your materials.",
+                  "Hello Dhuraj Interiors, I'd like to discuss an interior project.",
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -203,7 +205,7 @@ export function Contact() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-display text-[1.6rem] leading-tight text-ink-950">
-                    Send an enquiry
+                    Tell us about your project
                   </h3>
                   <p className="mt-1.5 text-xs leading-relaxed text-ink-500">
                     Fill in the details and your message opens in WhatsApp, ready to send.
@@ -288,7 +290,7 @@ export function Contact() {
 
                   <div>
                     <label htmlFor="type" className="mb-1.5 block text-xs font-medium text-ink-700">
-                      Enquiry type
+                      Project type
                     </label>
                     <div className="relative">
                       <select
@@ -321,7 +323,7 @@ export function Contact() {
                     id="message"
                     name="message"
                     rows={5}
-                    placeholder="Tell us what you're looking for — materials, quantities, delivery location or the project you're working on."
+                    placeholder="Tell us about the space, the work you're planning and where it is."
                     value={fields.message}
                     onChange={(event) => update("message", event.target.value)}
                     aria-invalid={Boolean(errors.message)}
@@ -393,7 +395,7 @@ export function Contact() {
               </a>
             </div>
             <iframe
-              title="Map showing Laghara Hardwares in Thanjavur"
+              title="Map showing Dhuraj Interiors in Thanjavur"
               src={business.mapEmbed}
               width="100%"
               height="380"

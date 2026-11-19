@@ -19,7 +19,7 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
   const value = useMemo<EnquiryContextValue>(
     () => ({
       prefill,
-      requestEnquiry: (subject, message, type = "Product availability") => {
+      requestEnquiry: (subject, message, type = "Full home interior") => {
         setPrefill({
           subject,
           message: message ?? `I'd like to enquire about ${subject}.`,
