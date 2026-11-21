@@ -18,7 +18,7 @@ export function Process() {
                   <em className="font-light italic text-brass-600">handover.</em>
                 </>
               }
-              description="Good interiors come from clear decisions. Our process keeps you involved without making the project feel complicated."
+              description="Good interiors come from clear decisions. Our process keeps you involved without the complications."
             />
           </Reveal>
           <Reveal delay={100} className="shrink-0">

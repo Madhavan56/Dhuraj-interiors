@@ -22,7 +22,7 @@ export function WhyUs() {
                       <em className="font-light italic text-brass-600">care.</em>
                     </>
                   }
-                  description="The details clients notice long after the dust settles — and the reasons they come back."
+                  description="The details clients notice long after the dust settles — and why they come back."
                 />
               </Reveal>
 

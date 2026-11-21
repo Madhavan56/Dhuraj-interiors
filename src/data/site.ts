@@ -22,6 +22,24 @@ export const business = {
     "&z=15&output=embed",
 } as const;
 
+/**
+ * Every photo on the site is referenced from here.
+ * To swap an image, either replace the file in `public/images/` or change the
+ * path below — no component needs editing.
+ */
+export const images = {
+  hero: "/images/hero.jpg",
+  aboutStudio: "/images/about-studio.png",
+  courtyard: "/images/gallery-courtyard.jpg",
+  living: "/images/lounge.jpg",
+  kitchen: "/images/gallery-kitchen.jpg",
+  wardrobe: "/images/gallery-wardrobe.jpg",
+  flooring: "/images/living.jpg",
+  colour: "/images/gallery-yellow.jpg",
+  woodwork: "/images/craft.jpg",
+  finishes: "/images/gallery-green.jpg",
+} as const;
+
 export type NavItem = { label: string; href: string };
 
 export const navItems: NavItem[] = [
@@ -42,20 +60,17 @@ export type Service = {
 export const services: Service[] = [
   {
     title: "Modular kitchens",
-    description:
-      "Bespoke kitchens planned around how you cook, with practical storage and finishes that wear well.",
+    description: "Bespoke kitchens planned around how you cook, with practical, hard-wearing finishes.",
     icon: "kitchen",
   },
   {
     title: "Wardrobes & storage",
-    description:
-      "Fitted wardrobes and storage that make the most of every wall, corner and ceiling height.",
+    description: "Fitted wardrobes that make the most of every wall, corner and ceiling height.",
     icon: "wardrobe",
   },
   {
     title: "Wooden flooring",
-    description:
-      "Warm, hard-wearing wooden floors, supplied and laid with a finish made to last.",
+    description: "Warm, hard-wearing wooden floors, supplied and laid to last.",
     icon: "floor",
   },
   {
@@ -67,7 +82,7 @@ export const services: Service[] = [
   {
     title: "Mosquito netlon",
     description:
-      "Made-to-measure netlon systems for windows and doors — effective, neat and easy to live with.",
+      "Made-to-measure netlon for windows and doors — effective, neat and easy to live with.",
     icon: "shield",
   },
   {
@@ -89,17 +104,17 @@ export const processSteps = [
   {
     title: "Planning & concept",
     description:
-      "We start with your routines, measurements and ideas, then shape a design that fits the space and the budget.",
+      "We start with your routines, measurements and ideas, then shape a design that fits the space and budget.",
   },
   {
     title: "Materials & quality",
     description:
-      "Boards, finishes and fittings are selected together, with quality checks on materials and craftsmanship at every stage.",
+      "Boards, finishes and fittings are chosen together, with quality checks at every stage.",
   },
   {
     title: "A timeline you can plan around",
     description:
-      "Once the design is approved, we set out a clear, personalised schedule for each phase — and keep you updated as we build.",
+      "Once the design is approved, we set a clear schedule for each phase and keep you updated as we build.",
   },
 ];
 
@@ -113,25 +128,24 @@ export const strengths: Strength[] = [
   {
     title: "Crafting interiors since 1987",
     description:
-      "Founded by Dhurai Raj, our studio has spent more than three decades shaping homes across the region.",
+      "Founded by Dhurai Raj, our studio has shaped homes across the region for more than three decades.",
     icon: "award",
   },
   {
     title: "One team, start to finish",
     description:
-      "Design, woodwork and installation are handled in-house, so the detail you approve is the detail you get.",
+      "Design, woodwork and installation are handled in-house, so what you approve is what you get.",
     icon: "layers",
   },
   {
     title: "Materials chosen to last",
     description:
-      "We specify boards, finishes and fittings for daily life in Tamil Nadu's climate, not just for photographs.",
+      "We choose boards, finishes and fittings for daily life in Tamil Nadu's climate, not just for photos.",
     icon: "shield",
   },
   {
     title: "A five-year warranty",
-    description:
-      "Our workmanship is covered for five years — a commitment we can make because we stand behind how we build.",
+    description: "Our workmanship is covered for five years — we stand behind how we build.",
     icon: "clock",
   },
   {
@@ -143,7 +157,7 @@ export const strengths: Strength[] = [
   {
     title: "Support long after handover",
     description:
-      "Need an adjustment or a repair years later? You can still call the same team that built your interiors.",
+      "Need an adjustment years later? Call the same team that built your interiors.",
     icon: "sparkle",
   },
 ];
@@ -156,42 +170,42 @@ export type GalleryItem = {
 
 export const gallery: GalleryItem[] = [
   {
-    src: "/images/lounge.jpg",
+    src: images.living,
     alt: "Warm living room with timber flooring, leather seating and tall windows",
     caption: "Living & lounge",
   },
   {
-    src: "/images/gallery-kitchen.jpg",
+    src: images.kitchen,
     alt: "Fitted kitchen with handleless cabinetry and a work island",
     caption: "Modular kitchens",
   },
   {
-    src: "/images/gallery-wardrobe.jpg",
+    src: images.wardrobe,
     alt: "Built-in wardrobe with glass-panel doors in a bright bedroom",
     caption: "Wardrobes & storage",
   },
   {
-    src: "/images/living.jpg",
+    src: images.flooring,
     alt: "Living room with timber flooring and panelled joinery",
     caption: "Wooden flooring & joinery",
   },
   {
-    src: "/images/gallery-yellow.jpg",
+    src: images.colour,
     alt: "Living room with a yellow sofa, green wall and layered textiles",
     caption: "Colour & material",
   },
   {
-    src: "/images/craft.jpg",
+    src: images.woodwork,
     alt: "Craftsperson turning a piece of timber on a lathe",
     caption: "Custom woodwork",
   },
   {
-    src: "/images/gallery-courtyard.jpg",
+    src: images.courtyard,
     alt: "Warm entry courtyard with terracotta flooring, timber doors and a bench",
     caption: "Entrances & courtyards",
   },
   {
-    src: "/images/gallery-green.jpg",
+    src: images.finishes,
     alt: "Living room with a patterned green wall, timber floor and planting",
     caption: "Finishes & texture",
   },

@@ -33,7 +33,7 @@ export function Services() {
                     <em className="font-light italic text-brass-300">fit.</em>
                   </>
                 }
-                description="Six services, one team. We design, make and install interiors that are made for the way you live."
+                description="Six services, one team. We design, make and install interiors made for the way you live."
               />
             </Reveal>
 

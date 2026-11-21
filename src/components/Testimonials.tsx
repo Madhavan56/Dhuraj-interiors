@@ -21,7 +21,7 @@ export function Testimonials() {
                 <em className="font-light italic text-brass-300">real homes.</em>
               </>
             }
-            description="A few notes shared by clients who trusted us with their kitchens, wardrobes and interiors."
+            description="A few notes from clients who trusted us with their kitchens, wardrobes and interiors."
           />
         </Reveal>
 

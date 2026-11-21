@@ -55,7 +55,7 @@ export function Gallery() {
                   <em className="font-light italic text-brass-600">work.</em>
                 </>
               }
-              description="Kitchens, wardrobes, flooring and woodwork — the materials, finishes and details we bring together."
+              description="Kitchens, wardrobes, flooring and woodwork — the materials and finishes we bring together."
             />
           </Reveal>
           <Reveal delay={100} className="shrink-0">

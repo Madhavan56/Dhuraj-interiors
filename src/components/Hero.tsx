@@ -1,4 +1,4 @@
-import { stats } from "../data/site";
+import { images, stats } from "../data/site";
 import { Icon } from "./ui/Icons";
 
 export function Hero() {
@@ -9,7 +9,7 @@ export function Hero() {
     >
       <div className="absolute inset-0">
         <img
-          src="/images/hero.jpg"
+          src={images.hero}
           alt="Warm timber-panelled living room with leather seating and a fitted kitchen"
           width={1920}
           height={1280}
@@ -56,8 +56,7 @@ export function Hero() {
             style={{ "--delay": "600ms" } as React.CSSProperties}
           >
             For more than 35 years, Dhuraj Interiors has designed and built modular kitchens,
-            wardrobes and custom woodwork for homes across Thanjavur, Trichy, Mannargudi and
-            Pudukkottai.
+            wardrobes and custom woodwork across Thanjavur and nearby towns.
           </p>
 
           <div

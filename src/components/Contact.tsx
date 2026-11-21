@@ -108,7 +108,7 @@ export function Contact() {
                     <em className="font-light italic text-brass-600">fits you.</em>
                   </>
                 }
-                description="Tell us what you have in mind — a kitchen, wardrobes or a full home interior. We'll arrange a consultation at our Thanjavur studio or on site."
+                description="Tell us what you have in mind — a kitchen, wardrobes or a full home. We'll arrange a consultation at our studio or on site."
               />
             </Reveal>
 

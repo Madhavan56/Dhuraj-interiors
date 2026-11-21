@@ -1,7 +1,7 @@
 import { Reveal } from "./ui/Reveal";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Icon } from "./ui/Icons";
-import { business } from "../data/site";
+import { business, images } from "../data/site";
 
 const values = ["Founded in 1987", "5-year warranty", "Lifelong support"];
 
@@ -18,7 +18,7 @@ export function About() {
               />
               <div className="relative overflow-hidden bg-cream-deep">
                 <img
-                  src="/images/about-studio.png"
+                  src={images.aboutStudio}
                   alt="Softly lit interior with a lounge chair, side table and timber floor"
                   width={635}
                   height={639}
@@ -30,7 +30,7 @@ export function About() {
 
               <div className="absolute -bottom-8 right-4 w-[42%] max-w-[13rem] overflow-hidden border-[6px] border-cream bg-cream-deep shadow-xl sm:-right-6">
                 <img
-                  src="/images/gallery-courtyard.jpg"
+                  src={images.courtyard}
                   alt="Warm entry courtyard with terracotta flooring and timber doors"
                   width={900}
                   height={504}
@@ -74,23 +74,20 @@ export function About() {
             <div className="mt-7 space-y-5 text-[0.9375rem] leading-relaxed text-ink-700/85">
               <Reveal delay={80}>
                 <p>
-                  Dhuraj Interiors was founded in 1987 by Dhurai Raj, with a simple belief: a
-                  well-made interior should feel personal, practical and built to last.
+                  Founded in 1987 by Dhurai Raj, we believe a well-made interior should feel
+                  personal, practical and built to last.
                 </p>
               </Reveal>
               <Reveal delay={140}>
                 <p>
-                  From our studio and workshop in Thanjavur, we design and build modular
-                  kitchens, wardrobes, wooden flooring, false ceilings, mosquito netlon and
-                  custom woodwork for homes and businesses across Trichy, Mannargudi and
-                  Pudukkottai.
+                  From our Thanjavur studio and workshop, we design and build kitchens,
+                  wardrobes, flooring, ceilings and woodwork for homes across the region.
                 </p>
               </Reveal>
               <Reveal delay={200}>
                 <p>
-                  Every project is handled by one team, from the first measurement and drawing
-                  to the final fit and finish. You stay involved at every step — and we stay
-                  available long after handover.
+                  One team handles every project, from first measurement to final fit — and we
+                  stay available long after handover.
                 </p>
               </Reveal>
             </div>
