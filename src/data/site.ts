@@ -235,6 +235,15 @@ export const enquiryTypes = [
   "Something else",
 ] as const;
 
+export const budgetOptions = [
+  "Not decided yet",
+  "Under ₹2 lakh",
+  "₹2–5 lakh",
+  "₹5–10 lakh",
+  "₹10–20 lakh",
+  "Above ₹20 lakh",
+] as const;
+
 export function whatsappLink(message: string) {
   return `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(message)}`;
 }

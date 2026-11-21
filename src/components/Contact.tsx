@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { business, enquiryTypes, mailtoLink, whatsappLink } from "../data/site";
+import { budgetOptions, business, enquiryTypes, mailtoLink, whatsappLink } from "../data/site";
 import { useEnquiry } from "../context/EnquiryContext";
 import { Icon, WhatsAppIcon } from "./ui/Icons";
 import { Reveal } from "./ui/Reveal";
@@ -10,6 +10,7 @@ type Fields = {
   phone: string;
   email: string;
   type: string;
+  budget: string;
   message: string;
 };
 
@@ -20,6 +21,7 @@ const emptyFields: Fields = {
   phone: "",
   email: "",
   type: enquiryTypes[0],
+  budget: budgetOptions[0],
   message: "",
 };
 
@@ -85,6 +87,7 @@ export function Contact() {
       `Name: ${fields.name.trim()}`,
       `Phone: ${fields.phone.trim()}`,
       fields.email.trim() ? `Email: ${fields.email.trim()}` : null,
+      `Budget: ${fields.budget}`,
       "",
       fields.message.trim(),
     ]
@@ -300,29 +303,6 @@ export function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-ink-700">
-                      Email <span className="font-normal text-ink-500">(optional)</span>
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="you@example.com"
-                      value={fields.email}
-                      onChange={(event) => update("email", event.target.value)}
-                      aria-invalid={Boolean(errors.email)}
-                      aria-describedby={errors.email ? "email-error" : undefined}
-                      className={inputClass}
-                    />
-                    {errors.email && (
-                      <p id="email-error" className="mt-1.5 text-[0.6875rem] text-red-700">
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
                     <label htmlFor="type" className="mb-1.5 block text-xs font-medium text-ink-700">
                       Project type
                     </label>
@@ -345,6 +325,54 @@ export function Contact() {
                         className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-ink-500"
                       />
                     </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="budget" className="mb-1.5 block text-xs font-medium text-ink-700">
+                      Budget <span className="font-normal text-ink-500">(approx.)</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="budget"
+                        name="budget"
+                        value={fields.budget}
+                        onChange={(event) => update("budget", event.target.value)}
+                        className={`${inputClass} appearance-none pr-9`}
+                      >
+                        {budgetOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                      <Icon
+                        name="chevronDown"
+                        className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-ink-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-ink-700">
+                      Email <span className="font-normal text-ink-500">(optional)</span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="you@example.com"
+                      value={fields.email}
+                      onChange={(event) => update("email", event.target.value)}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      className={inputClass}
+                    />
+                    {errors.email && (
+                      <p id="email-error" className="mt-1.5 text-[0.6875rem] text-red-700">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
 
