@@ -23,8 +23,9 @@ const emptyFields: Fields = {
   message: "",
 };
 
+// 16px on phones — anything smaller makes iOS Safari zoom when a field is tapped.
 const inputClass =
-  "w-full rounded-md border border-ink-900/15 bg-cream px-3.5 py-3 text-sm text-ink-900 placeholder:text-ink-500/60 transition-colors focus:border-plum-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-plum-900/10";
+  "w-full rounded-md border border-ink-900/15 bg-cream px-3.5 py-3 text-base text-ink-900 placeholder:text-ink-500/60 transition-colors focus:border-plum-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-plum-900/10 sm:text-sm";
 
 export function Contact() {
   const [fields, setFields] = useState<Fields>(emptyFields);
