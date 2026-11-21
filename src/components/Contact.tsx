@@ -133,7 +133,7 @@ export function Contact() {
           <div className="lg:col-span-5">
             <Reveal>
               <SectionHeading
-                index="07"
+                index="06"
                 eyebrow="Start a project"
                 title={
                   <>

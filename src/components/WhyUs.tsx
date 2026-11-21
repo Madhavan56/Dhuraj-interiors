@@ -12,7 +12,7 @@ export function WhyUs() {
             <div className="lg:sticky lg:top-32">
               <Reveal>
                 <SectionHeading
-                  index="04"
+                  index="03"
                   eyebrow="Why Dhuraj"
                   title={
                     <>

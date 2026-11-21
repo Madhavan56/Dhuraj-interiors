@@ -38,6 +38,8 @@ export const images = {
   colour: "/images/gallery-yellow.jpg",
   woodwork: "/images/craft.jpg",
   finishes: "/images/gallery-green.jpg",
+  ceiling: "/images/service-ceiling.jpg",
+  netlon: "/images/service-netlon.jpg",
 } as const;
 
 export type NavItem = { label: string; href: string };
@@ -46,7 +48,6 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
   { label: "Gallery", href: "#gallery" },
   { label: "Contact", href: "#contact" },
 ];
@@ -54,42 +55,49 @@ export const navItems: NavItem[] = [
 export type Service = {
   title: string;
   description: string;
-  icon: "kitchen" | "wardrobe" | "floor" | "ceiling" | "shield" | "hammer";
+  image: string;
+  imageAlt: string;
 };
 
 export const services: Service[] = [
   {
     title: "Modular kitchens",
     description: "Bespoke kitchens planned around how you cook, with practical, hard-wearing finishes.",
-    icon: "kitchen",
+    image: images.kitchen,
+    imageAlt: "Fitted kitchen with handleless cabinetry and a work island",
   },
   {
     title: "Wardrobes & storage",
     description: "Fitted wardrobes that make the most of every wall, corner and ceiling height.",
-    icon: "wardrobe",
+    image: images.wardrobe,
+    imageAlt: "Built-in wardrobe with glass-panel doors in a bright bedroom",
   },
   {
     title: "Wooden flooring",
     description: "Warm, hard-wearing wooden floors, supplied and laid to last.",
-    icon: "floor",
+    image: images.flooring,
+    imageAlt: "Living room with timber flooring and panelled joinery",
   },
   {
     title: "False ceilings",
     description:
       "Clean ceiling lines, cove lighting and concealed services, detailed to suit the room.",
-    icon: "ceiling",
+    image: images.ceiling,
+    imageAlt: "Living room with a coffered false ceiling and recessed lighting",
   },
   {
     title: "Mosquito netlon",
     description:
       "Made-to-measure netlon for windows and doors — effective, neat and easy to live with.",
-    icon: "shield",
+    image: images.netlon,
+    imageAlt: "Window screen framing a sunset over the rooftops",
   },
   {
     title: "Custom woodwork",
     description:
       "Bespoke furniture, panelling and joinery, made in our workshop and fitted on site.",
-    icon: "hammer",
+    image: images.woodwork,
+    imageAlt: "Craftsperson turning a piece of timber on a lathe",
   },
 ];
 
@@ -98,24 +106,6 @@ export const stats = [
   { value: "35+", label: "Years of craftsmanship" },
   { value: "5-year", label: "Workmanship warranty" },
   { value: "60-day", label: "Typical project completion" },
-];
-
-export const processSteps = [
-  {
-    title: "Planning & concept",
-    description:
-      "We start with your routines, measurements and ideas, then shape a design that fits the space and budget.",
-  },
-  {
-    title: "Materials & quality",
-    description:
-      "Boards, finishes and fittings are chosen together, with quality checks at every stage.",
-  },
-  {
-    title: "A timeline you can plan around",
-    description:
-      "Once the design is approved, we set a clear schedule for each phase and keep you updated as we build.",
-  },
 ];
 
 export type Strength = {

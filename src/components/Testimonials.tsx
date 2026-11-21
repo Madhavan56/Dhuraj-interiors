@@ -12,7 +12,7 @@ export function Testimonials() {
       <div className="container-page relative">
         <Reveal>
           <SectionHeading
-            index="06"
+            index="05"
             eyebrow="Client feedback"
             tone="light"
             title={

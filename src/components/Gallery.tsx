@@ -66,7 +66,7 @@ export function Gallery() {
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <Reveal>
             <SectionHeading
-              index="05"
+              index="04"
               eyebrow="Gallery"
               title={
                 <>
