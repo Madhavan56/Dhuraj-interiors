@@ -9,6 +9,7 @@ import { Testimonials } from "./components/Testimonials";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { FloatingWhatsApp } from "./components/FloatingWhatsApp";
+import { MobileActionBar } from "./components/MobileActionBar";
 import { EnquiryProvider } from "./context/EnquiryContext";
 
 export default function App() {
@@ -31,8 +32,12 @@ export default function App() {
         <Testimonials />
         <Contact />
       </main>
-      <Footer />
+      {/* Leaves room for the sticky mobile action bar so it never covers the footer. */}
+      <div className="pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:pb-0">
+        <Footer />
+      </div>
       <FloatingWhatsApp />
+      <MobileActionBar />
     </EnquiryProvider>
   );
 }

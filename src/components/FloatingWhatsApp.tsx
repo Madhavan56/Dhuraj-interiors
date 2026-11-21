@@ -41,7 +41,7 @@ export function FloatingWhatsApp() {
       aria-label="Chat with Dhuraj Interiors on WhatsApp"
       aria-hidden={!shown}
       tabIndex={shown ? undefined : -1}
-      className={`group fixed bottom-5 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-[#128c4a] text-white shadow-[0_12px_30px_-8px_rgba(18,140,74,0.6)] transition-all duration-500 hover:scale-105 hover:bg-[#0f7a40] sm:bottom-6 sm:right-6 ${
+      className={`group fixed bottom-5 right-5 z-40 flex size-14 max-md:hidden items-center justify-center rounded-full bg-[#128c4a] text-white shadow-[0_12px_30px_-8px_rgba(18,140,74,0.6)] transition-all duration-500 hover:scale-105 hover:bg-[#0f7a40] sm:bottom-6 sm:right-6 ${
         shown
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0"

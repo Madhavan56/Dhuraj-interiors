@@ -7,6 +7,7 @@ import { SectionHeading } from "./ui/SectionHeading";
 export function Gallery() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const isOpen = openIndex !== null;
 
   const close = useCallback(() => setOpenIndex(null), []);
@@ -34,6 +35,25 @@ export function Gallery() {
     };
   }, [isOpen, close, step]);
 
+  const onTouchStart = (event: React.TouchEvent) => {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (event: React.TouchEvent) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+
+    // Only treat a mainly-horizontal drag as a swipe, so it never fights a scroll.
+    if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) return;
+    step(dx < 0 ? 1 : -1);
+  };
+
   const spanFor = (index: number) => {
     if (index === 0) return "col-span-2 row-span-2";
     if (index === gallery.length - 1) return "col-span-2";
@@ -60,7 +80,8 @@ export function Gallery() {
           </Reveal>
           <Reveal delay={100} className="shrink-0">
             <p className="max-w-[16rem] text-xs leading-relaxed text-ink-500">
-              Click any image to view it larger. Use the arrow keys to move through the gallery.
+              Click any image to view it larger. Use the arrow keys — or swipe on a phone — to move
+              through the gallery.
             </p>
           </Reveal>
         </div>
@@ -135,11 +156,16 @@ export function Gallery() {
             </button>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 items-center justify-center py-4">
+          <div
+            className="relative flex min-h-0 flex-1 touch-pan-y items-center justify-center overflow-hidden py-4"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <img
               src={gallery[openIndex].src}
               alt={gallery[openIndex].alt}
-              className="max-h-full max-w-full rounded-md object-contain"
+              draggable={false}
+              className="max-h-full max-w-full rounded-md object-contain select-none"
             />
           </div>
 
