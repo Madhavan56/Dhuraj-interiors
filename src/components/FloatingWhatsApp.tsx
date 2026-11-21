@@ -18,7 +18,7 @@ export function FloatingWhatsApp() {
   }, []);
 
   // Step aside while the enquiry form is on screen so the bubble never sits on
-  // top of the Send on WhatsApp / Send by email buttons on a phone.
+  // top of the Send enquiry / Send on WhatsApp buttons on a phone.
   useEffect(() => {
     const contact = document.getElementById("contact");
     if (!contact) return;

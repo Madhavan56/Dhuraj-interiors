@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { budgetOptions, business, enquiryTypes, mailtoLink, whatsappLink } from "../data/site";
+import {
+  budgetOptions,
+  business,
+  enquiryTypes,
+  web3formsAccessKey,
+  whatsappLink,
+} from "../data/site";
 import { useEnquiry } from "../context/EnquiryContext";
 import { Icon, WhatsAppIcon } from "./ui/Icons";
 import { Reveal } from "./ui/Reveal";
@@ -25,6 +31,8 @@ const emptyFields: Fields = {
   message: "",
 };
 
+type Status = "idle" | "sending" | "sent" | "error" | "whatsapp";
+
 // 16px on phones — anything smaller makes iOS Safari zoom when a field is tapped.
 const inputClass =
   "w-full rounded-md border border-ink-900/15 bg-cream px-3.5 py-3 text-base text-ink-900 placeholder:text-ink-500/60 transition-colors focus:border-plum-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-plum-900/10 sm:text-sm";
@@ -32,7 +40,7 @@ const inputClass =
 export function Contact() {
   const [fields, setFields] = useState<Fields>(emptyFields);
   const [errors, setErrors] = useState<Errors>({});
-  const [sent, setSent] = useState<string | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
   const { prefill } = useEnquiry();
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
@@ -43,7 +51,7 @@ export function Contact() {
       type: prefill.type,
       message: prefill.message,
     }));
-    setSent(null);
+    setStatus("idle");
     setErrors({});
     const timer = window.setTimeout(() => messageRef.current?.focus({ preventScroll: true }), 500);
     return () => window.clearTimeout(timer);
@@ -52,7 +60,7 @@ export function Contact() {
   const update = (key: keyof Fields, value: string) => {
     setFields((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: undefined }));
-    setSent(null);
+    setStatus("idle");
   };
 
   const validate = () => {
@@ -110,23 +118,46 @@ export function Contact() {
     if (!tab) window.location.href = href;
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!validate()) return;
-    setSent("whatsapp");
-    openLink(whatsappLink(buildMessage()));
+    if (!validate() || status === "sending") return;
+    setStatus("sending");
+
+    // Form-encoded rather than JSON on purpose: Web3Forms rejects the CORS
+    // preflight that a JSON content type would trigger, and a simple request
+    // never sends one.
+    const payload = new URLSearchParams({
+      access_key: web3formsAccessKey,
+      subject: `New enquiry — ${fields.type}`,
+      from_name: `${business.name} website`,
+      name: fields.name.trim(),
+      phone: fields.phone.trim(),
+      project_type: fields.type,
+      budget: fields.budget,
+      message: fields.message.trim(),
+    });
+    // Left out when blank, so the reply-to falls back to the key's owner.
+    if (fields.email.trim()) payload.set("email", fields.email.trim());
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
+      const result = (await response.json()) as { success?: boolean };
+      if (!response.ok || !result.success) throw new Error("Web3Forms rejected the enquiry.");
+      setFields(emptyFields);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
-  const onEmail = () => {
+  const onWhatsApp = () => {
     if (!validate()) return;
-    setSent("email");
-    // A real anchor handles mailto better than location.href on mobile browsers.
-    const link = document.createElement("a");
-    link.href = mailtoLink(`Enquiry — ${fields.type}`, buildMessage());
-    link.rel = "noopener";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    setStatus("whatsapp");
+    openLink(whatsappLink(buildMessage()));
   };
 
   return (
@@ -245,7 +276,7 @@ export function Contact() {
                     Tell us about your project
                   </h3>
                   <p className="mt-1.5 text-xs leading-relaxed text-ink-500">
-                    Fill in the details and your message opens in WhatsApp, ready to send.
+                    Fill in the details and we'll reply within one working day.
                   </p>
                 </div>
                 <span className="hidden size-10 shrink-0 place-items-center rounded-full bg-plum-900/[0.06] text-plum-800 sm:grid">
@@ -400,35 +431,46 @@ export function Contact() {
                 </div>
 
                 <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
-                  <button type="submit" className="btn btn-primary w-full touch-manipulation">
-                    <WhatsAppIcon className="size-4 shrink-0" />
-                    Send on WhatsApp
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="btn btn-primary w-full touch-manipulation disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    <Icon name="mail" className="size-4 shrink-0" />
+                    {status === "sending" ? "Sending…" : "Send enquiry"}
                   </button>
                   <button
                     type="button"
-                    onClick={onEmail}
+                    onClick={onWhatsApp}
                     className="btn btn-outline-dark w-full touch-manipulation"
                   >
-                    <Icon name="mail" className="size-4 shrink-0" />
-                    Send by email
+                    <WhatsAppIcon className="size-4 shrink-0" />
+                    Send on WhatsApp
                   </button>
                 </div>
 
                 <p aria-live="polite" className="mt-3 min-h-4 text-[0.6875rem] leading-relaxed">
-                  {sent === "whatsapp" && (
+                  {status === "sent" && (
                     <span className="flex items-start gap-1.5 text-iris-700">
                       <Icon name="check" className="mt-0.5 size-3.5 shrink-0" strokeWidth={2.2} />
-                      WhatsApp is opening with your message. If nothing happened, use Send by
-                      email or call {business.phone}.
+                      Thank you — your enquiry is with us. We'll reply within one working day.
                     </span>
                   )}
-                  {sent === "email" && (
+                  {status === "error" && (
+                    <span className="flex items-start gap-1.5 text-red-700">
+                      <Icon name="alert" className="mt-0.5 size-3.5 shrink-0" strokeWidth={2.2} />
+                      We couldn't send that just now. Please try again, or call{" "}
+                      {business.phone}.
+                    </span>
+                  )}
+                  {status === "whatsapp" && (
                     <span className="flex items-start gap-1.5 text-iris-700">
                       <Icon name="check" className="mt-0.5 size-3.5 shrink-0" strokeWidth={2.2} />
-                      Your email app should now be open with the enquiry ready to send.
+                      WhatsApp is opening with your message. If nothing happened, send the form
+                      instead or call {business.phone}.
                     </span>
                   )}
-                  {!sent && (
+                  {status === "idle" && (
                     <span className="text-ink-500">
                       We use your details only to reply to this enquiry.
                     </span>

@@ -57,6 +57,20 @@ into `public/images/` and point `images.ceiling` / `images.netlon` at them.
 The social-share image (`og:image`) in `index.html` is static HTML, so it still points
 at `/images/hero.jpg` directly — replacing that file updates it too.
 
+## The enquiry form
+
+Form submissions are emailed through [Web3Forms](https://web3forms.com) — no server
+is needed. The access key lives in `src/data/site.ts` as `web3formsAccessKey`, and
+enquiries land in the inbox that key was created for.
+
+Web3Forms keys are public, client-side keys by design. In the Web3Forms dashboard,
+restrict the key to the site's domain so nobody else can post enquiries with it. To
+send enquiries somewhere else, create a key for the new inbox and replace the value
+in `src/data/site.ts`.
+
+The "Send on WhatsApp" button is separate: it opens WhatsApp with the same details
+for people who would rather chat.
+
 ## Content
 
 All copy — services, process steps, strengths, gallery captions, testimonials,

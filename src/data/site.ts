@@ -44,6 +44,13 @@ export const images = {
 
 export type NavItem = { label: string; href: string };
 
+/**
+ * Web3Forms access key used by the enquiry form. Keys are meant to sit in
+ * client-side code — restrict this key to the site's domain in the Web3Forms
+ * dashboard so nobody else can post enquiries with it.
+ */
+export const web3formsAccessKey = "b7fd1cf9-8493-4441-9878-48b0c8bdd129";
+
 export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
@@ -246,8 +253,4 @@ export const budgetOptions = [
 
 export function whatsappLink(message: string) {
   return `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(message)}`;
-}
-
-export function mailtoLink(subject: string, body: string) {
-  return `mailto:${business.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
