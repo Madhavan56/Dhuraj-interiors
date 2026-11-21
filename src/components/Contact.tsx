@@ -62,6 +62,18 @@ export function Contact() {
     }
     if (fields.message.trim().length < 5) next.message = "Add a short note about what you need.";
     setErrors(next);
+
+    // On a phone the error can sit above the fold, so bring the first bad field into view.
+    const firstInvalid = (["name", "phone", "email", "message"] as const).find((key) => next[key]);
+    if (firstInvalid) {
+      window.setTimeout(() => {
+        document
+          .getElementById(firstInvalid)
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        document.getElementById(firstInvalid)?.focus({ preventScroll: true });
+      }, 60);
+    }
+
     return Object.keys(next).length === 0;
   };
 
@@ -78,18 +90,39 @@ export function Contact() {
       .filter((line) => line !== null)
       .join("\n");
 
+  // Phones block `window.open` from a submit handler and leave a blank tab, so
+  // navigate in place there; desktops still get a new tab.
+  const openLink = (href: string) => {
+    const onTouchDevice =
+      window.matchMedia("(pointer: coarse)").matches ||
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (onTouchDevice) {
+      window.location.href = href;
+      return;
+    }
+
+    const tab = window.open(href, "_blank", "noopener,noreferrer");
+    if (!tab) window.location.href = href;
+  };
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) return;
-    const message = buildMessage();
-    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
     setSent("whatsapp");
+    openLink(whatsappLink(buildMessage()));
   };
 
   const onEmail = () => {
     if (!validate()) return;
-    window.location.href = mailtoLink(`Enquiry — ${fields.type}`, buildMessage());
     setSent("email");
+    // A real anchor handles mailto better than location.href on mobile browsers.
+    const link = document.createElement("a");
+    link.href = mailtoLink(`Enquiry — ${fields.type}`, buildMessage());
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   return (
@@ -337,17 +370,17 @@ export function Contact() {
                   )}
                 </div>
 
-                <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
-                  <button type="submit" className="btn btn-primary flex-1">
-                    <WhatsAppIcon className="size-4" />
+                <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
+                  <button type="submit" className="btn btn-primary w-full touch-manipulation">
+                    <WhatsAppIcon className="size-4 shrink-0" />
                     Send on WhatsApp
                   </button>
                   <button
                     type="button"
                     onClick={onEmail}
-                    className="btn btn-outline-dark h-11 flex-1 sm:h-[3.125rem]"
+                    className="btn btn-outline-dark w-full touch-manipulation"
                   >
-                    <Icon name="mail" className="size-4" />
+                    <Icon name="mail" className="size-4 shrink-0" />
                     Send by email
                   </button>
                 </div>
@@ -356,8 +389,8 @@ export function Contact() {
                   {sent === "whatsapp" && (
                     <span className="flex items-start gap-1.5 text-iris-700">
                       <Icon name="check" className="mt-0.5 size-3.5 shrink-0" strokeWidth={2.2} />
-                      WhatsApp opened in a new tab with your message. If it didn't open, use
-                      Send by email or call {business.phone}.
+                      WhatsApp is opening with your message. If nothing happened, use Send by
+                      email or call {business.phone}.
                     </span>
                   )}
                   {sent === "email" && (
