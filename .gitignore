@@ -4,3 +4,7 @@ dist
 shots
 .DS_Store
 *.local
+.env
+.env.*
+!.env.example
+data
