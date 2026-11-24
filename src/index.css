@@ -164,6 +164,55 @@
     border-color: var(--color-plum-900);
     color: var(--color-cream);
   }
+
+  /* Admin forms */
+  .admin-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+  }
+
+  .admin-input {
+    display: block;
+    width: 100%;
+    border-radius: 0.625rem;
+    border: 1px solid color-mix(in srgb, var(--color-ink-900) 14%, transparent);
+    background-color: #fffdf9;
+    padding: 0.7rem 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-ink-900);
+    transition:
+      border-color 0.25s var(--ease-out-expo),
+      box-shadow 0.25s var(--ease-out-expo);
+  }
+
+  .admin-input::placeholder {
+    color: color-mix(in srgb, var(--color-ink-500) 65%, transparent);
+  }
+
+  .admin-input:focus {
+    outline: none;
+    border-color: var(--color-iris-600);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-iris-600) 18%, transparent);
+  }
+
+  .admin-input[aria-invalid="true"] {
+    border-color: #b42318;
+  }
+
+  .admin-input:disabled {
+    opacity: 0.6;
+  }
+
+  .admin-check {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--color-plum-800);
+  }
 }
 
 @utility eyebrow {

@@ -3,20 +3,58 @@
 One-page marketing site for Dhuraj Interiors, Thanjavur — interior design, modular
 kitchens, wardrobes, flooring and custom woodwork.
 
-Built with React 19, Vite 7 and Tailwind CSS 4.
+Built with React 19, Vite 7, Tailwind CSS 4, Express 5 and SQLite (via
+`node:sqlite`).
 
 ## Running it
 
 ```bash
 npm install
-npm run dev      # local dev server
+npm run dev      # API on :4000 plus the Vite site on :5173
 npm run build    # typecheck (tsc -b) and build to dist/
-npm run preview  # serve the built site
+npm start        # serve the built site and API together on :4000
+npm test         # end-to-end projects workflow test
 ```
+
+The projects gallery reads from the API, so during development run `npm run dev`
+(or `npm start`) rather than `vite` alone. Vite proxies `/api` and `/uploads` to
+the API server.
+
+Configuration lives in `.env` (copy `.env.example`). `ADMIN_EMAIL` and
+`ADMIN_PASSWORD` create or update the admin account on startup; `DATA_DIR`
+(default `data`) holds `dhuraj.sqlite` and uploaded project photos.
+
+## Projects gallery & admin dashboard
+
+`/#projects` on the website is driven entirely by the database — nothing in the
+component is hardcoded. Visitors can filter published projects by category, open
+a project to read its full description and browse the gallery images, and start a
+WhatsApp enquiry about a similar design.
+
+Sign in at `/admin` to manage everything:
+
+- Add a project with a main image, optional gallery images, category, short and
+  full descriptions, status, display order and a featured flag.
+- Search, filter and paginate the project table; edit, preview, publish or
+  unpublish, and delete projects (with confirmation).
+- Set the WhatsApp number used by the enquiry buttons on project pages.
+
+Only published projects are served by the public API. Images are re-encoded to
+WebP, resized to at most 2000px and stored under `data/uploads/projects/`;
+replaced or deleted projects clean up their files. Uploads accept JPG, PNG and
+WebP up to 10 MB.
+
+API routes: public `GET /api/projects`, `/api/projects/featured`,
+`/api/projects/:slug`, `/api/project-categories`, `/api/settings`; admin (cookie
+auth) `/api/admin/projects` with create, update, status, delete and
+`/api/admin/settings`.
 
 ## Changing the photos
 
-Every photo on the site is listed once, in the `images` map at the top of
+This section covers the static site imagery (hero, about, gallery, services).
+Project photographs are managed in the admin dashboard instead — see above.
+
+Every static photo on the site is listed once, in the `images` map at the top of
 `src/data/site.ts`:
 
 | Key           | Where it appears            | File                            |
@@ -59,8 +97,8 @@ at `/images/hero.jpg` directly — replacing that file updates it too.
 
 ## The enquiry form
 
-Form submissions are emailed through [Web3Forms](https://web3forms.com) — no server
-is needed. The access key lives in `src/data/site.ts` as `web3formsAccessKey`, and
+Form submissions are emailed through [Web3Forms](https://web3forms.com) — no mail
+server is needed. The access key lives in `src/data/site.ts` as `web3formsAccessKey`, and
 enquiries land in the inbox that key was created for.
 
 Web3Forms keys are public, client-side keys by design. In the Web3Forms dashboard,
