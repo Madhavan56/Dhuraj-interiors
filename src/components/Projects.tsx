@@ -41,6 +41,8 @@ export function Projects() {
 
   const closeRef = useRef<HTMLButtonElement>(null);
   const requestedSlug = useRef<string | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [scrollState, setScrollState] = useState({ canScroll: false, atStart: true, atEnd: true });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -142,6 +144,38 @@ export function Projects() {
   }, [detail, viewerIndex, galleryImages.length, closeDetail]);
 
   const projects = data?.projects ?? [];
+
+  // Slider: arrows appear only when the cards overflow, and disable at each end.
+  const measureTrack = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const max = track.scrollWidth - track.clientWidth;
+    setScrollState({
+      canScroll: max > 8,
+      atStart: track.scrollLeft <= 2,
+      atEnd: track.scrollLeft >= max - 2,
+    });
+  }, []);
+
+  useEffect(() => {
+    measureTrack();
+    window.addEventListener("resize", measureTrack);
+    return () => window.removeEventListener("resize", measureTrack);
+  }, [measureTrack, projects.length]);
+
+  useEffect(() => {
+    trackRef.current?.scrollTo({ left: 0 });
+    measureTrack();
+  }, [category, measureTrack]);
+
+  const slide = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.firstElementChild as HTMLElement | null;
+    const gap = 20;
+    const step = card ? card.offsetWidth + gap : Math.round(track.clientWidth * 0.85);
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
 
   return (
     <section id="projects" className="bg-cream-deep py-24 md:py-32">
@@ -267,9 +301,20 @@ export function Projects() {
           </div>
         ) : (
           <>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="relative mt-10">
+              <div
+                ref={trackRef}
+                onScroll={measureTrack}
+                role="group"
+                aria-label="Project gallery"
+                className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
               {projects.map((project, index) => (
-                <Reveal key={project.id} delay={Math.min(index, 5) * 60}>
+                <Reveal
+                  key={project.id}
+                  delay={Math.min(index, 3) * 60}
+                  className="w-[85%] shrink-0 snap-start sm:w-[calc(50%-0.625rem)] lg:w-[calc((100%-2.5rem)/3)]"
+                >
                   <button
                     type="button"
                     onClick={() => void openProject(project.slug)}
@@ -322,13 +367,41 @@ export function Projects() {
                   </button>
                 </Reveal>
               ))}
-            </div>
+              </div>
 
-            <p className="mt-8 text-[0.6875rem] text-ink-500">
-              {data && data.total > projects.length
-                ? `Showing ${projects.length} of ${data.total} projects. Filter by category to narrow the collection.`
-                : "Every project shown here is published from our studio's project archive."}
-            </p>
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                <p className="text-[0.6875rem] text-ink-500">
+                  {data && data.total > projects.length
+                    ? `Showing ${projects.length} of ${data.total} projects.`
+                    : `${projects.length} project${projects.length === 1 ? "" : "s"}${
+                        category ? " in this category" : ""
+                      }.`}{" "}
+                  {scrollState.canScroll && "Swipe or use the arrows to browse."}
+                </p>
+                {scrollState.canScroll && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => slide(-1)}
+                      disabled={scrollState.atStart}
+                      aria-label="Previous projects"
+                      className="grid size-10 place-items-center rounded-full border border-ink-900/15 text-ink-800 transition-colors hover:border-ink-900 hover:bg-ink-900 hover:text-cream disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-ink-900/15 disabled:hover:bg-transparent disabled:hover:text-ink-800"
+                    >
+                      <Icon name="arrowLeft" className="size-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => slide(1)}
+                      disabled={scrollState.atEnd}
+                      aria-label="Next projects"
+                      className="grid size-10 place-items-center rounded-full border border-ink-900/15 text-ink-800 transition-colors hover:border-ink-900 hover:bg-ink-900 hover:text-cream disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-ink-900/15 disabled:hover:bg-transparent disabled:hover:text-ink-800"
+                    >
+                      <Icon name="arrowRight" className="size-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </>
         )}
       </div>

@@ -46,7 +46,7 @@ export function ProjectForm({
   const [categoryId, setCategoryId] = useState(
     project?.categoryId ? String(project.categoryId) : "",
   );
-  const [status, setStatus] = useState<"published" | "draft">(project?.status ?? "draft");
+  const [status, setStatus] = useState<"published" | "draft">(project?.status ?? "published");
   const [displayOrder, setDisplayOrder] = useState(String(project?.displayOrder ?? 0));
   const [isFeatured, setIsFeatured] = useState(project?.isFeatured ?? false);
 
