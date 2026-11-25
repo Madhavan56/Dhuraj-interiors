@@ -1,0 +1,17 @@
+services:
+  site:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATA_DIR: /app/data
+    volumes:
+      - dhuraj-data:/app/data
+
+volumes:
+  dhuraj-data:
+    name: dhuraj-data

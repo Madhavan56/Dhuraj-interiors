@@ -24,6 +24,38 @@ Configuration lives in `.env` (copy `.env.example`). `ADMIN_EMAIL` and
 `ADMIN_PASSWORD` create or update the admin account on startup; `DATA_DIR`
 (default `data`) holds `dhuraj.sqlite` and uploaded project photos.
 
+## Deploying with Docker
+
+The image builds the site, installs production dependencies and runs the Node
+server on port 4000. Projects, photos and the admin account live in the
+`dhuraj-data` volume, so they survive rebuilds.
+
+```bash
+cp .env.example .env              # set a fresh ADMIN_PASSWORD
+docker compose up -d --build
+```
+
+Open `http://localhost:4000`, with the dashboard at `/admin`. Stop any local dev
+server first if port 4000 is already taken. Put nginx or Caddy in front for
+HTTPS, then set `COOKIE_SECURE=true` so the session cookie is HTTPS-only.
+
+Without compose:
+
+```bash
+docker build -t dhuraj-interiors .
+docker run -d --name dhuraj -p 4000:4000 --env-file .env -v dhuraj-data:/app/data dhuraj-interiors
+```
+
+Everything that needs to persist sits in `/app/data`: `dhuraj.sqlite` and
+`uploads/`. Back it up by copying the volume:
+
+```bash
+docker run --rm -v dhuraj-data:/data -v "$PWD":/backup alpine tar czf /backup/dhuraj-backup.tgz -C /data .
+```
+
+The database is SQLite, so no database server is required and one container is
+enough. Two replicas writing the same file is not supported.
+
 ## Projects gallery & admin dashboard
 
 `/#projects` on the website is driven entirely by the database — nothing in the

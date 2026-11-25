@@ -1,0 +1,13 @@
+node_modules
+dist
+data
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.freebuff
+shots
+.ref
+*.log
+README.md
