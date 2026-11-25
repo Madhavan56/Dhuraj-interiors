@@ -157,13 +157,35 @@ const migrations: string[][] = [
 ];
 
 async function migrate(): Promise<void> {
-  const row = await queryOne<{ user_version: number }>("PRAGMA user_version");
-  const current = Number(row?.user_version ?? 0);
+  // Turso does not allow writing PRAGMA user_version, so the applied version is
+  // tracked in a table instead.
+  await run(
+    "CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)",
+  );
 
-  for (let version = current; version < migrations.length; version += 1) {
+  const appliedRows = await queryAll<{ version: number }>("SELECT version FROM schema_migrations");
+  const applied = new Set(appliedRows.map((row) => Number(row.version)));
+
+  // Databases created before schema_migrations existed already have the first
+  // migration applied (and recorded via PRAGMA user_version).
+  if (applied.size === 0) {
+    const legacy = await queryOne<{ name: string }>(
+      "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'projects'",
+    );
+    if (legacy) {
+      await run("INSERT INTO schema_migrations (version, applied_at) VALUES (1, ?)", nowIso());
+      applied.add(1);
+    }
+  }
+
+  for (let version = 1; version <= migrations.length; version += 1) {
+    if (applied.has(version)) continue;
     await transaction(async (tx) => {
-      for (const statement of migrations[version]) await tx.execute(statement);
-      await tx.execute(`PRAGMA user_version = ${version + 1}`);
+      for (const statement of migrations[version - 1]) await tx.execute(statement);
+      await tx.execute({
+        sql: "INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)",
+        args: [version, nowIso()],
+      });
     });
   }
 }
