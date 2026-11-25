@@ -3,8 +3,9 @@
 One-page marketing site for Dhuraj Interiors, Thanjavur — interior design, modular
 kitchens, wardrobes, flooring and custom woodwork.
 
-Built with React 19, Vite 7, Tailwind CSS 4, Express 5 and SQLite (via
-`node:sqlite`).
+Built with React 19, Vite 7, Tailwind CSS 4, Express 5 and SQLite through
+libSQL — a local database file in development, Turso in production. Project
+photos go to Vercel Blob on Vercel and to `data/uploads` locally.
 
 ## Running it
 
@@ -22,7 +23,45 @@ the API server.
 
 Configuration lives in `.env` (copy `.env.example`). `ADMIN_EMAIL` and
 `ADMIN_PASSWORD` create or update the admin account on startup; `DATA_DIR`
-(default `data`) holds `dhuraj.sqlite` and uploaded project photos.
+(default `data`) holds `dhuraj.sqlite` and uploaded project photos. Without
+`TURSO_DATABASE_URL` the server uses that local file, which is all development
+and the test suite need.
+
+## Deploying to Vercel
+
+Vercel serves the built site from its CDN and runs the Express app as one
+serverless function (`api/index.ts`); `vercel.json` sends `/api/*` there and
+`/admin` to the app. Two managed services replace the local disk:
+
+1. **Database — Turso.** Create a database and copy its URL and token:
+
+   ```bash
+   turso db create dhuraj-interiors
+   turso db show dhuraj-interiors --url
+   turso db tokens create dhuraj-interiors
+   ```
+
+   The schema is created automatically on the first request.
+
+2. **Photos — Vercel Blob.** In the Vercel project open Storage → Blob, create a
+   store and connect it. `BLOB_READ_WRITE_TOKEN` is added to the project for you.
+
+Environment variables to set in the Vercel dashboard (Production and Preview):
+`ADMIN_EMAIL`, `ADMIN_PASSWORD`, `COOKIE_SECURE=true`, `TURSO_DATABASE_URL`,
+`TURSO_AUTH_TOKEN`, and `BLOB_READ_WRITE_TOKEN` from the Blob store.
+
+Push the repository, import it in Vercel (framework preset Vite), and deploy.
+There is nothing else to configure; `npm run build` runs the typecheck and the
+Vite build.
+
+Things that differ from local running:
+
+- Uploads are limited to 4 MB per image, because Vercel caps request bodies at
+  4.5 MB. Development allows 10 MB.
+- The database and photos live outside the function, so redeploys keep them.
+- Uploaded images are stored as absolute Blob URLs; older `/uploads/...` paths are
+  still served locally but would need migrating if you move an existing database.
+- Admin sessions are stored in the database, so they survive redeploys.
 
 ## Deploying with Docker
 

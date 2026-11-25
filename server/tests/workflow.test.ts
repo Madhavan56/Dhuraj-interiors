@@ -86,11 +86,13 @@ before(async () => {
 after(async () => {
   if (server) await new Promise<void>((resolve) => server!.close(() => resolve()));
 
-  // Close SQLite so Windows releases the WAL files before the temp folder is removed.
-  const { db } = await import("../db.ts");
-  db.close();
+  // Close the database so Windows releases the file before the temp folder is removed.
+  const { closeDatabase } = await import("../db.ts");
+  closeDatabase();
 
-  if (dataDir) await rm(dataDir, { recursive: true, force: true });
+  // libSQL keeps its file handle until the process exits on Windows, so the
+  // throwaway folder may survive the run; failing the suite over that helps nobody.
+  if (dataDir) await rm(dataDir, { recursive: true, force: true }).catch(() => undefined);
 });
 
 test("project management workflow", async () => {

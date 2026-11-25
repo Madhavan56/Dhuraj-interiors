@@ -19,14 +19,17 @@ export function createApp() {
 
   app.use(express.json({ limit: "200kb" }));
 
-  app.use(
-    "/uploads",
-    express.static(config.uploadDir, {
-      fallthrough: false,
-      immutable: true,
-      maxAge: "365d",
-    }),
-  );
+  // Local development serves uploads from disk; production uses Blob URLs.
+  if (!config.useBlobStorage) {
+    app.use(
+      "/uploads",
+      express.static(config.uploadDir, {
+        fallthrough: false,
+        immutable: true,
+        maxAge: "365d",
+      }),
+    );
+  }
 
   app.use("/api/admin", adminRouter);
   app.use("/api", publicRouter);

@@ -1,5 +1,3 @@
-import type { CategoryRow } from "./projects.ts";
-
 export type FieldErrors = Record<string, string>;
 
 export type ProjectInput = {
@@ -23,7 +21,6 @@ function parseBoolean(value: unknown): boolean {
 
 export function parseProjectInput(
   body: Record<string, unknown>,
-  categoryLookup: (id: number) => CategoryRow | undefined,
 ): { data?: ProjectInput; errors: FieldErrors } {
   const errors: FieldErrors = {};
 
@@ -43,11 +40,10 @@ export function parseProjectInput(
     errors.fullDescription = "The full description is too long.";
   }
 
+  // Whether that category exists is checked by the route, which can await it.
   const categoryId = Number.parseInt(text(body.categoryId), 10);
   if (!Number.isInteger(categoryId) || categoryId <= 0) {
     errors.categoryId = "Choose a project category.";
-  } else if (!categoryLookup(categoryId)) {
-    errors.categoryId = "That category no longer exists. Choose another.";
   }
 
   const status = text(body.status) === "published" ? "published" : "draft";

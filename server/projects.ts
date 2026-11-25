@@ -1,4 +1,13 @@
-import { nowIso, queryAll, queryOne, run, slugify } from "./db.ts";
+import {
+  nowIso,
+  queryAll,
+  queryAllIn,
+  queryOne,
+  queryOneIn,
+  runIn,
+  slugify,
+  type Executor,
+} from "./db.ts";
 
 export type ProjectRow = {
   id: number;
@@ -71,12 +80,12 @@ function categoryFrom(row: ProjectRow): ProjectCategory | null {
   return { id: row.category_id, name: row.category_name, slug: row.category_slug ?? "" };
 }
 
-export function imagesFor(projectIds: number[]): Map<number, ProjectImage[]> {
+export async function imagesFor(projectIds: number[]): Promise<Map<number, ProjectImage[]>> {
   const map = new Map<number, ProjectImage[]>();
   if (projectIds.length === 0) return map;
 
   const placeholders = projectIds.map(() => "?").join(", ");
-  const rows = queryAll<ProjectImageRow>(
+  const rows = await queryAll<ProjectImageRow>(
     `SELECT * FROM project_images WHERE project_id IN (${placeholders}) ORDER BY display_order ASC, id ASC`,
     ...projectIds,
   );
@@ -126,7 +135,9 @@ type ListOptions = {
   limit?: number;
 };
 
-export function listProjectRows(options: ListOptions): { rows: ProjectRow[]; total: number } {
+export async function listProjectRows(
+  options: ListOptions,
+): Promise<{ rows: ProjectRow[]; total: number }> {
   const where: string[] = [];
   const params: (string | number)[] = [];
 
@@ -151,14 +162,19 @@ export function listProjectRows(options: ListOptions): { rows: ProjectRow[]; tot
 
   const whereSql = where.length > 0 ? `WHERE ${where.join(" AND ")}` : "";
   const total = Number(
-    queryOne<{ count: number }>(`SELECT COUNT(*) AS count ${fromProjects} ${whereSql}`, ...params)?.count ?? 0,
+    (
+      await queryOne<{ count: number }>(
+        `SELECT COUNT(*) AS count ${fromProjects} ${whereSql}`,
+        ...params,
+      )
+    )?.count ?? 0,
   );
 
   const limit = Math.min(Math.max(options.limit ?? 12, 1), 100);
   const page = Math.max(options.page ?? 1, 1);
   const offset = (page - 1) * limit;
 
-  const rows = queryAll<ProjectRow>(
+  const rows = await queryAll<ProjectRow>(
     `SELECT ${selectColumns} ${fromProjects} ${whereSql}
      ORDER BY p.display_order ASC, p.created_at DESC, p.id DESC
      LIMIT ? OFFSET ?`,
@@ -170,8 +186,13 @@ export function listProjectRows(options: ListOptions): { rows: ProjectRow[]; tot
   return { rows, total };
 }
 
-export function adminProjectCounts() {
-  const row = queryOne<{ total: number; published: number; drafts: number; featured: number }>(
+export async function adminProjectCounts() {
+  const row = await queryOne<{
+    total: number;
+    published: number;
+    drafts: number;
+    featured: number;
+  }>(
     `SELECT COUNT(*) AS total,
             SUM(CASE WHEN status = 'published' THEN 1 ELSE 0 END) AS published,
             SUM(CASE WHEN status = 'draft' THEN 1 ELSE 0 END) AS drafts,
@@ -186,23 +207,29 @@ export function adminProjectCounts() {
   };
 }
 
-export function getProjectRowById(id: number): ProjectRow | undefined {
-  return queryOne<ProjectRow>(`SELECT ${selectColumns} ${fromProjects} WHERE p.id = ?`, id);
+export async function getProjectRowById(
+  id: number,
+  exec?: Executor,
+): Promise<ProjectRow | undefined> {
+  const sql = `SELECT ${selectColumns} ${fromProjects} WHERE p.id = ?`;
+  return exec
+    ? queryOneIn<ProjectRow>(exec, sql, id)
+    : queryOne<ProjectRow>(sql, id);
 }
 
-export function getProjectRowBySlug(slug: string): ProjectRow | undefined {
+export async function getProjectRowBySlug(slug: string): Promise<ProjectRow | undefined> {
   return queryOne<ProjectRow>(`SELECT ${selectColumns} ${fromProjects} WHERE p.slug = ?`, slug);
 }
 
-export function getProjectImages(projectId: number): ProjectImageRow[] {
+export async function getProjectImages(projectId: number): Promise<ProjectImageRow[]> {
   return queryAll<ProjectImageRow>(
     "SELECT * FROM project_images WHERE project_id = ? ORDER BY display_order ASC, id ASC",
     projectId,
   );
 }
 
-export function listCategories(): CategoryWithCount[] {
-  const rows = queryAll<CategoryRow & { project_count: number }>(
+export async function listCategories(): Promise<CategoryWithCount[]> {
+  const rows = await queryAll<CategoryRow & { project_count: number }>(
     `SELECT c.*, COUNT(p.id) AS project_count
      FROM project_categories c
      LEFT JOIN projects p ON p.category_id = c.id AND p.status = 'published'
@@ -218,19 +245,23 @@ export function listCategories(): CategoryWithCount[] {
   }));
 }
 
-export function getCategoryById(id: number): CategoryRow | undefined {
+export async function getCategoryById(id: number): Promise<CategoryRow | undefined> {
   return queryOne<CategoryRow>("SELECT * FROM project_categories WHERE id = ?", id);
 }
 
-export function uniqueProjectSlug(title: string, ignoreId?: number): string {
+export async function uniqueProjectSlug(
+  title: string,
+  ignoreId?: number,
+  exec?: Executor,
+): Promise<string> {
   const base = slugify(title) || "project";
   let candidate = base;
 
   for (let attempt = 2; attempt < 200; attempt += 1) {
-    const existing = queryOne<{ id: number }>(
-      "SELECT id FROM projects WHERE slug = ?",
-      candidate,
-    );
+    const sql = "SELECT id FROM projects WHERE slug = ?";
+    const existing = exec
+      ? await queryOneIn<{ id: number }>(exec, sql, candidate)
+      : await queryOne<{ id: number }>(sql, candidate);
     if (!existing || existing.id === ignoreId) return candidate;
     candidate = `${base}-${attempt}`;
   }
@@ -238,37 +269,53 @@ export function uniqueProjectSlug(title: string, ignoreId?: number): string {
   return `${base}-${Date.now()}`;
 }
 
-export function insertProjectImages(projectId: number, paths: string[], startOrder = 0): ProjectImageRow[] {
-  return paths.map((imagePath, index) => {
+export async function insertProjectImages(
+  exec: Executor,
+  projectId: number,
+  paths: string[],
+  startOrder = 0,
+): Promise<ProjectImageRow[]> {
+  const rows: ProjectImageRow[] = [];
+
+  for (const [index, imagePath] of paths.entries()) {
     const order = startOrder + index;
     const now = nowIso();
-    const result = run(
+    const result = await runIn(
+      exec,
       "INSERT INTO project_images (project_id, image_path, display_order, created_at) VALUES (?, ?, ?, ?)",
       projectId,
       imagePath,
       order,
       now,
     );
-    return {
+    rows.push({
       id: Number(result.lastInsertRowid),
       project_id: projectId,
       image_path: imagePath,
       display_order: order,
       created_at: now,
-    };
-  });
+    });
+  }
+
+  return rows;
 }
 
-export function deleteImageRows(projectId: number, ids: number[]): string[] {
+export async function deleteImageRows(
+  exec: Executor,
+  projectId: number,
+  ids: number[],
+): Promise<string[]> {
   if (ids.length === 0) return [];
 
   const placeholders = ids.map(() => "?").join(", ");
-  const rows = queryAll<ProjectImageRow>(
+  const rows = await queryAllIn<ProjectImageRow>(
+    exec,
     `SELECT * FROM project_images WHERE project_id = ? AND id IN (${placeholders})`,
     projectId,
     ...ids,
   );
-  run(
+  await runIn(
+    exec,
     `DELETE FROM project_images WHERE project_id = ? AND id IN (${placeholders})`,
     projectId,
     ...ids,

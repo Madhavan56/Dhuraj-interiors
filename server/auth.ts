@@ -30,12 +30,12 @@ export function parseCookies(header: string | undefined): Record<string, string>
   return cookies;
 }
 
-export function createSession(adminId: number): { token: string; expires: Date } {
+export async function createSession(adminId: number): Promise<{ token: string; expires: Date }> {
   const token = randomBytes(32).toString("hex");
   const expires = new Date(Date.now() + config.sessionDays * 24 * 60 * 60 * 1000);
 
-  run("DELETE FROM admin_sessions WHERE expires_at < ?", nowIso());
-  run(
+  await run("DELETE FROM admin_sessions WHERE expires_at < ?", nowIso());
+  await run(
     "INSERT INTO admin_sessions (admin_id, token_hash, expires_at, created_at) VALUES (?, ?, ?, ?)",
     adminId,
     hashToken(token),
@@ -46,10 +46,10 @@ export function createSession(adminId: number): { token: string; expires: Date }
   return { token, expires };
 }
 
-export function findSessionUser(token: string): AdminUser | null {
+export async function findSessionUser(token: string): Promise<AdminUser | null> {
   if (!token) return null;
 
-  const row = queryOne<SessionRow>(
+  const row = await queryOne<SessionRow>(
     `SELECT s.id, s.admin_id, s.expires_at, u.email
      FROM admin_sessions s
      JOIN admin_users u ON u.id = s.admin_id
@@ -60,21 +60,21 @@ export function findSessionUser(token: string): AdminUser | null {
   if (!row) return null;
 
   if (new Date(row.expires_at).getTime() <= Date.now()) {
-    run("DELETE FROM admin_sessions WHERE id = ?", row.id);
+    await run("DELETE FROM admin_sessions WHERE id = ?", row.id);
     return null;
   }
 
   return { id: row.admin_id, email: row.email };
 }
 
-export function sessionUser(req: Request): AdminUser | null {
+export async function sessionUser(req: Request): Promise<AdminUser | null> {
   const token = parseCookies(req.headers.cookie)[config.sessionCookieName];
   return token ? findSessionUser(token) : null;
 }
 
-export function destroySession(req: Request): void {
+export async function destroySession(req: Request): Promise<void> {
   const token = parseCookies(req.headers.cookie)[config.sessionCookieName];
-  if (token) run("DELETE FROM admin_sessions WHERE token_hash = ?", hashToken(token));
+  if (token) await run("DELETE FROM admin_sessions WHERE token_hash = ?", hashToken(token));
 }
 
 export function setSessionCookie(res: Response, token: string, expires: Date): void {
@@ -91,8 +91,12 @@ export function clearSessionCookie(res: Response): void {
   res.clearCookie(config.sessionCookieName, { path: "/" });
 }
 
-export function requireAdmin(req: Request, res: Response, next: NextFunction): void {
-  const user = sessionUser(req);
+export async function requireAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  const user = await sessionUser(req);
   if (!user) {
     res.status(401).json({ error: "Sign in to manage projects." });
     return;
