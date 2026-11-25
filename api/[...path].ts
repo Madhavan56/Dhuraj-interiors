@@ -13,14 +13,17 @@ function loadApp(): Promise<Express> {
  * original path in `req.url`, so Express keeps its normal routing.
  */
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
+  let app: Express;
   try {
-    const app = await loadApp();
-    if (!req.url?.startsWith("/api")) req.url = `/api${req.url ?? "/"}`;
-    return app(req, res);
+    app = await loadApp();
   } catch (error) {
-    const detail = error instanceof Error ? `${error.message}\n${error.stack ?? ""}` : String(error);
+    console.error("API failed to start:", error);
     res.statusCode = 500;
     res.setHeader("content-type", "application/json; charset=utf-8");
-    res.end(JSON.stringify({ boot: "failed", detail }));
+    res.end(JSON.stringify({ error: "The API is not configured correctly." }));
+    return;
   }
+
+  if (!req.url?.startsWith("/api")) req.url = `/api${req.url ?? "/"}`;
+  return app(req, res);
 }

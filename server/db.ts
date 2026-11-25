@@ -9,7 +9,14 @@ const { createClient } = config.useRemoteDatabase
   ? await import("@libsql/client/web")
   : await import("@libsql/client");
 
-if (!config.useRemoteDatabase) fs.mkdirSync(config.dataDir, { recursive: true });
+if (!config.useRemoteDatabase) {
+  if (config.onVercel) {
+    throw new Error(
+      "TURSO_DATABASE_URL is not set. Add it (and TURSO_AUTH_TOKEN) to the project's environment variables on Vercel.",
+    );
+  }
+  fs.mkdirSync(config.dataDir, { recursive: true });
+}
 
 export const db: Client = createClient(
   config.useRemoteDatabase
