@@ -57,6 +57,13 @@ export function createApp() {
       next(error);
       return;
     }
+
+    const status = (error as { status?: number } | null)?.status;
+    if (status === 404) {
+      res.status(404).json({ error: "Not found." });
+      return;
+    }
+
     console.error(error);
     res.status(500).json({ error: "Something went wrong on our end. Please try again." });
   });

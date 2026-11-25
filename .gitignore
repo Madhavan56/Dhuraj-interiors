@@ -7,4 +7,4 @@ shots
 .env
 .env.*
 !.env.example
-data
+/data
