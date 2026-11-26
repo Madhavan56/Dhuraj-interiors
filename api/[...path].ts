@@ -18,9 +18,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     app = await loadApp();
   } catch (error) {
     console.error("API failed to start:", error);
+    const detail = error instanceof Error ? error.message : String(error);
     res.statusCode = 500;
     res.setHeader("content-type", "application/json; charset=utf-8");
-    res.end(JSON.stringify({ error: "The API is not configured correctly." }));
+    res.end(JSON.stringify({ error: "The API is not configured correctly.", detail }));
     return;
   }
 
