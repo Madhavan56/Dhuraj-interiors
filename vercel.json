@@ -5,10 +5,12 @@
   "outputDirectory": "dist",
   "functions": {
     "api/[...path].ts": {
-      "memory": 1024,
       "maxDuration": 60,
       "includeFiles": "{server/**,package.json}"
     }
   },
-  "rewrites": [{ "source": "/admin", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/[...path]" },
+    { "source": "/admin", "destination": "/index.html" }
+  ]
 }
