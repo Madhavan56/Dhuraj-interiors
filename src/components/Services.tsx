@@ -8,16 +8,50 @@ import { SectionHeading } from "./ui/SectionHeading";
 export function Services() {
   const { requestEnquiry } = useEnquiry();
   const [active, setActive] = useState(0);
+  // Only the active photo is fetched up front; the rest load the first time
+  // their row is hovered, so the page's main images are not competing with them.
+  const [loaded, setLoaded] = useState<number[]>([0]);
   const [viewing, setViewing] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const current = services[active];
+
+  const focusService = (index: number) => {
+    setActive(index);
+    setLoaded((current) => (current.includes(index) ? current : [...current, index]));
+  };
 
   const closeViewer = useCallback(() => setViewing(null), []);
   const stepViewer = useCallback((direction: number) => {
     setViewing((index) =>
       index === null ? null : (index + direction + services.length) % services.length,
     );
+  }, []);
+
+  // Warm the remaining photos once the section is near the viewport on
+  // hover-capable screens, so each swap fades a decoded image instead of
+  // stalling on a download. Touch devices still fetch only what they view.
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (min-width: 1024px)").matches) return;
+    const node = sectionRef.current;
+    if (!node) return;
+
+    let timer = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        timer = window.setTimeout(() => setLoaded(services.map((_, index) => index)), 400);
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -59,7 +93,7 @@ export function Services() {
   };
 
   return (
-    <section id="services" className="relative bg-plum-950 py-24 text-cream md:py-32">
+    <section ref={sectionRef} id="services" className="relative bg-plum-950 py-24 text-cream md:py-32">
       {/* Decoration is clipped here, not on the section: an overflow-hidden ancestor
           would stop the sticky photo panel below from sticking while you scroll. */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -105,13 +139,13 @@ export function Services() {
                 return (
                   <Reveal as="li" key={service.title} delay={index * 50}>
                     <div
-                      onMouseEnter={() => setActive(index)}
-                      onFocus={() => setActive(index)}
+                      onMouseEnter={() => focusService(index)}
+                      onFocus={() => focusService(index)}
                       className="group border-t border-cream/12 py-6"
                     >
                       <div className="flex items-start gap-4 sm:gap-6">
                         <span
-                          className={`mt-2.5 text-[0.625rem] tabular-nums tracking-[0.2em] transition-colors duration-500 ${
+                          className={`mt-2.5 text-[0.625rem] tabular-nums tracking-[0.2em] transition-colors duration-700 ${
                             isActive ? "text-brass-300" : "text-cream/25"
                           }`}
                         >
@@ -120,7 +154,7 @@ export function Services() {
 
                         <div className="min-w-0 flex-1">
                           <h3
-                            className={`font-display text-[1.45rem] leading-tight transition-colors duration-500 sm:text-[1.65rem] ${
+                            className={`font-display text-[1.45rem] leading-tight transition-colors duration-700 sm:text-[1.65rem] ${
                               isActive ? "text-brass-300" : "text-cream"
                             }`}
                           >
@@ -171,30 +205,47 @@ export function Services() {
             <div className="lg:sticky lg:top-24">
               <Reveal delay={120}>
                 <div className="relative aspect-[4/5] max-h-[calc(100svh-8.5rem)] overflow-hidden rounded-lg bg-plum-900 ring-1 ring-cream/10">
-                  {services.map((service, index) => (
-                    <img
-                      key={service.title}
-                      src={service.image}
-                      alt={active === index ? service.imageAlt : ""}
-                      aria-hidden={active === index ? undefined : true}
-                      loading="lazy"
-                      decoding="async"
-                      className={`absolute inset-0 size-full object-cover transition-all duration-700 ease-out ${
-                        active === index ? "scale-100 opacity-100" : "scale-105 opacity-0"
-                      }`}
-                    />
-                  ))}
+                  {loaded.map((index) => {
+                    const service = services[index];
+                    return (
+                      <img
+                        key={service.title}
+                        src={service.image}
+                        alt={active === index ? service.imageAlt : ""}
+                        aria-hidden={active === index ? undefined : true}
+                        loading="lazy"
+                        decoding="async"
+                        className={`absolute inset-0 size-full object-cover transition-[opacity,transform] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] ${
+                          active === index
+                            ? "scale-100 opacity-100"
+                            : "scale-[1.06] opacity-0"
+                        }`}
+                      />
+                    );
+                  })}
 
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-plum-950/90 via-plum-950/40 to-transparent p-6 pt-16"
                     aria-live="polite"
                   >
-                    <p className="text-[0.625rem] uppercase tracking-[0.2em] text-brass-300">
-                      {String(active + 1).padStart(2, "0")}
-                    </p>
-                    <p className="mt-2 font-display text-[1.25rem] leading-tight text-cream">
-                      {current.title}
-                    </p>
+                    <div className="grid">
+                      {services.map((service, index) => (
+                        <div
+                          key={service.title}
+                          aria-hidden={active === index ? undefined : true}
+                          className={`col-start-1 row-start-1 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                            active === index ? "opacity-100" : "opacity-0"
+                          }`}
+                        >
+                          <p className="text-[0.625rem] uppercase tracking-[0.2em] text-brass-300">
+                            {String(index + 1).padStart(2, "0")}
+                          </p>
+                          <p className="mt-2 font-display text-[1.25rem] leading-tight text-cream">
+                            {service.title}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                     <p className="mt-2 inline-flex items-center gap-1.5 text-[0.625rem] uppercase tracking-[0.14em] text-cream/50">
                       View larger
                       <Icon name="arrowUpRight" className="size-3" />
@@ -246,6 +297,7 @@ export function Services() {
             <img
               src={services[viewing].image}
               alt={services[viewing].imageAlt}
+              decoding="async"
               onClick={(event) => event.stopPropagation()}
               className="max-h-full max-w-full rounded object-contain"
             />

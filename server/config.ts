@@ -36,7 +36,7 @@ export const config = {
   blobToken,
   useBlobStorage: Boolean(blobToken),
 
-  adminEmail: process.env.ADMIN_EMAIL?.trim() || "admin@dhurajinteriors.com",
+  adminEmail: process.env.ADMIN_EMAIL?.trim() || "dhurajinteriors16@gmail.com",
   // Empty means "keep the existing password"; a random one is generated on first run.
   adminPassword: process.env.ADMIN_PASSWORD ?? "",
   sessionCookieName: "dhuraj_admin",

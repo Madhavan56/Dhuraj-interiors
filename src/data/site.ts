@@ -7,7 +7,7 @@ export const business = {
   phone: "+91 73737 30340",
   phoneHref: "tel:+917373730340",
   whatsapp: "917373730340",
-  email: "dhuraimuthukumar@hotmail.com",
+  email: "dhurajinteriors16@gmail.com",
   address: "1243, Murugan Kovil Street, Kalainyar Nagar, Thanjavur 613 004",
   locality: "Thanjavur, Tamil Nadu",
   hours: "Mon–Sat, 8 AM–8 PM · Sun, 8 AM–5 PM",
@@ -28,8 +28,8 @@ export const business = {
  * path below — no component needs editing.
  */
 export const images = {
-  hero: "/images/hero.jpg",
-  aboutStudio: "/images/about-studio.png",
+  hero: "/images/hero.webp",
+  aboutStudio: "/images/about-studio.webp",
   courtyard: "/images/gallery-courtyard.jpg",
   living: "/images/lounge.jpg",
   kitchen: "/images/gallery-kitchen.jpg",
@@ -119,6 +119,8 @@ export const stats = [
 export type Strength = {
   title: string;
   description: string;
+  image: string;
+  imageAlt: string;
   icon: "award" | "layers" | "shield" | "clock" | "refresh" | "sparkle";
 };
 
@@ -127,35 +129,47 @@ export const strengths: Strength[] = [
     title: "Crafting interiors since 1987",
     description:
       "Founded by Dhurai Raj, our studio has shaped homes across the region for more than three decades.",
+    image: images.aboutStudio,
+    imageAlt: "Softly lit interior with a lounge chair, side table and timber floor",
     icon: "award",
   },
   {
     title: "One team, start to finish",
     description:
       "Design, woodwork and installation are handled in-house, so what you approve is what you get.",
+    image: images.woodwork,
+    imageAlt: "Craftsperson turning a piece of timber on a lathe",
     icon: "layers",
   },
   {
     title: "Materials chosen to last",
     description:
       "We choose boards, finishes and fittings for daily life in Tamil Nadu's climate, not just for photos.",
+    image: images.finishes,
+    imageAlt: "Living room with a patterned green wall, timber floor and planting",
     icon: "shield",
   },
   {
     title: "A five-year warranty",
     description: "Our workmanship is covered for five years — we stand behind how we build.",
+    image: images.wardrobe,
+    imageAlt: "Built-in wardrobe with glass-panel doors in a bright bedroom",
     icon: "clock",
   },
   {
     title: "Completed in about 60 days",
     description:
       "Most projects are finished within 60 days, with a schedule agreed before work begins.",
+    image: images.kitchen,
+    imageAlt: "Fitted kitchen with handleless cabinetry and a work island",
     icon: "refresh",
   },
   {
     title: "Support long after handover",
     description:
       "Need an adjustment years later? Call the same team that built your interiors.",
+    image: images.living,
+    imageAlt: "Warm living room with timber flooring, leather seating and tall windows",
     icon: "sparkle",
   },
 ];
