@@ -72,7 +72,7 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[130] grid place-items-center bg-plum-950/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[130] grid place-items-center bg-ink-950/40 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-title"
@@ -80,7 +80,7 @@ export function ConfirmDialog({
         if (event.target === event.currentTarget && !busy) onCancel();
       }}
     >
-      <div className="dialog-in w-full max-w-md rounded-xl bg-cream p-6 shadow-2xl">
+      <div className="dialog-in w-full max-w-md rounded-xl border border-ink-900/10 bg-cream p-6 shadow-[0_40px_90px_-45px_rgba(35,26,18,0.55)]">
         <div className="flex items-start gap-4">
           <span className="grid size-10 shrink-0 place-items-center rounded-full bg-red-100 text-red-700">
             <Icon name="trash" className="size-5" />

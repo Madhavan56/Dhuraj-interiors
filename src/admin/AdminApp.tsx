@@ -42,15 +42,15 @@ function Login({ onSignedIn }: { onSignedIn: (admin: AdminUser) => void }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-plum-950 px-5 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-cream-deep px-5 py-12">
       <div className="w-full max-w-md">
         <div className="flex justify-center">
-          <Logo tone="light" />
+          <Logo />
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="mt-10 rounded-xl bg-cream p-7 shadow-[0_40px_90px_-50px_rgba(0,0,0,0.9)] sm:p-9"
+          className="mt-10 rounded-xl border border-ink-900/10 bg-cream p-7 shadow-[0_40px_80px_-55px_rgba(35,26,18,0.5)] sm:p-9"
         >
           <p className="eyebrow text-brass-600">Studio admin</p>
           <h1 className="mt-3 font-display text-[2rem] leading-tight text-ink-950">
@@ -311,9 +311,9 @@ export function AdminApp() {
 
   if (status === "checking") {
     return (
-      <div className="grid min-h-screen place-items-center bg-plum-950">
-        <p className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-cream/70">
-          <span className="size-4 animate-spin rounded-full border border-cream/30 border-t-cream" />
+      <div className="grid min-h-screen place-items-center bg-cream-deep">
+        <p className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-ink-500">
+          <span className="size-4 animate-spin rounded-full border border-ink-900/20 border-t-ink-900" />
           Checking session
         </p>
       </div>
@@ -338,25 +338,25 @@ export function AdminApp() {
 
   return (
     <div className="min-h-screen bg-cream-deep">
-      <header className="border-b border-cream/10 bg-plum-950 text-cream">
+      <header className="border-b border-ink-900/10 bg-cream text-ink-900">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-5">
             <a href="/" aria-label="Dhuraj Interiors website" className="hover:opacity-85">
-              <Logo tone="light" />
+              <Logo />
             </a>
-            <span className="hidden h-6 w-px bg-cream/15 sm:block" aria-hidden="true" />
-            <p className="hidden text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-brass-300 sm:block">
+            <span className="hidden h-6 w-px bg-ink-900/12 sm:block" aria-hidden="true" />
+            <p className="hidden text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-brass-600 sm:block">
               Admin dashboard
             </p>
           </div>
 
           <div className="flex items-center gap-3 text-xs">
-            <span className="hidden max-w-[16rem] truncate text-cream/60 md:inline">
+            <span className="hidden max-w-[16rem] truncate text-ink-500 md:inline">
               {admin?.email}
             </span>
             <a
               href="/"
-              className="hidden items-center gap-1.5 rounded-full border border-cream/20 px-3.5 py-2 text-[0.6875rem] font-medium transition-colors hover:bg-cream/10 sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-full border border-ink-900/18 px-3.5 py-2 text-[0.6875rem] font-medium transition-colors hover:bg-ink-900/5 sm:inline-flex"
             >
               <Icon name="arrowUpRight" className="size-3.5" />
               View website
@@ -364,7 +364,7 @@ export function AdminApp() {
             <button
               type="button"
               onClick={() => void signOut()}
-              className="inline-flex items-center gap-1.5 rounded-full border border-cream/20 px-3.5 py-2 text-[0.6875rem] font-medium transition-colors hover:bg-cream/10"
+              className="inline-flex items-center gap-1.5 rounded-full border border-ink-900/18 px-3.5 py-2 text-[0.6875rem] font-medium transition-colors hover:bg-ink-900/5"
             >
               <Icon name="logout" className="size-3.5" />
               Sign out
@@ -381,8 +381,8 @@ export function AdminApp() {
               aria-current={view === item.key ? "page" : undefined}
               className={`flex shrink-0 items-center gap-2 border-b-2 px-3 py-3 text-[0.75rem] font-medium transition-colors ${
                 view === item.key
-                  ? "border-brass-300 text-cream"
-                  : "border-transparent text-cream/50 hover:text-cream/85"
+                  ? "border-brass-600 text-ink-950"
+                  : "border-transparent text-ink-500 hover:text-ink-900"
               }`}
             >
               <Icon name={item.icon} className="size-4" />

@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-plum-950 text-cream"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-cream text-ink-900"
     >
       <div className="absolute inset-0">
         <img
@@ -18,19 +18,19 @@ export function Hero() {
           className="hero-image size-full object-cover object-[62%_center]"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-r from-plum-950 via-plum-950/82 to-plum-950/25"
+          className="absolute inset-0 bg-gradient-to-r from-cream via-cream/78 to-cream/12"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-plum-950 via-plum-950/10 to-plum-950/35"
+          className="absolute inset-0 bg-gradient-to-t from-cream via-transparent to-cream/28"
           aria-hidden="true"
         />
       </div>
 
-      <div className="container-page relative z-10 flex flex-1 flex-col justify-end pb-24 pt-40 sm:pb-10 sm:pt-44 lg:pt-40">
+      <div className="container-page relative z-10 flex flex-1 flex-col justify-end pb-24 pt-32 sm:pb-10 sm:pt-44 lg:pt-40">
         <div className="max-w-4xl">
-          <p className="hero-fade eyebrow text-cream/65" style={{ "--delay": "150ms" } as React.CSSProperties}>
-            <span className="size-1.5 bg-brass-300" aria-hidden="true" />
+          <p className="hero-fade eyebrow text-ink-500" style={{ "--delay": "150ms" } as React.CSSProperties}>
+            <span className="size-1.5 bg-brass-600" aria-hidden="true" />
             Thanjavur · Interior design &amp; custom woodwork
           </p>
 
@@ -43,7 +43,7 @@ export function Hero() {
             </span>
             <span className="hero-rise">
               <span
-                className="text-[0.86em] font-light italic text-brass-300"
+                className="text-[0.86em] font-light italic text-brass-600"
                 style={{ "--delay": "440ms" } as React.CSSProperties}
               >
                 you live.
@@ -52,7 +52,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="hero-fade mt-7 max-w-xl text-[0.9375rem] leading-relaxed text-cream/75 sm:text-base"
+            className="hero-fade mt-7 max-w-xl text-[0.9375rem] leading-relaxed text-ink-700 sm:text-base"
             style={{ "--delay": "600ms" } as React.CSSProperties}
           >
             For more than 35 years, Dhuraj Interiors has designed and built modular kitchens,
@@ -63,11 +63,11 @@ export function Hero() {
             className="hero-fade mt-9 flex flex-wrap items-center gap-3"
             style={{ "--delay": "720ms" } as React.CSSProperties}
           >
-            <a href="#contact" className="btn btn-light">
+            <a href="#contact" className="btn btn-primary">
               Start your project
               <Icon name="arrowRight" className="size-4" />
             </a>
-            <a href="#gallery" className="btn btn-outline">
+            <a href="#gallery" className="btn btn-outline-dark">
               View our work
               <Icon name="arrowUpRight" className="size-4" />
             </a>
@@ -75,17 +75,18 @@ export function Hero() {
         </div>
 
         <div
-          className="hero-fade-in mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-cream/15 pt-5 sm:mt-16 lg:mt-16"
+          id="hero-stats"
+          className="hero-fade-in mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-ink-900/12 pt-5 sm:mt-16 lg:mt-16"
           style={{ "--delay": "900ms" } as React.CSSProperties}
         >
           <dl className="grid w-full grid-cols-2 gap-x-6 gap-y-5 sm:w-auto sm:grid-cols-4 sm:gap-x-10 lg:gap-x-14">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-display text-[1.65rem] leading-none text-cream sm:text-2xl">
+                <dd className="font-display text-[1.65rem] leading-none text-ink-900 sm:text-2xl">
                   {stat.value}
                 </dd>
-                <p className="mt-1.5 text-[0.6875rem] leading-snug tracking-wide text-cream/50">
+                <p className="mt-1.5 text-[0.6875rem] leading-snug tracking-wide text-ink-500">
                   {stat.label}
                 </p>
               </div>

@@ -68,7 +68,7 @@ function PreviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-[110] overflow-y-auto bg-plum-950/80 p-3 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-[110] overflow-y-auto bg-ink-950/45 p-3 backdrop-blur-sm sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="admin-preview-title"
@@ -76,7 +76,7 @@ function PreviewModal({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="dialog-in mx-auto w-full max-w-4xl overflow-hidden rounded-xl bg-cream shadow-2xl">
+      <div className="dialog-in mx-auto w-full max-w-4xl overflow-hidden rounded-xl border border-ink-900/10 bg-cream shadow-[0_40px_90px_-45px_rgba(35,26,18,0.55)]">
         <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-ink-900/10 bg-cream/95 px-5 py-3.5 backdrop-blur">
           <p className="text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-brass-600">
             Project preview
@@ -107,7 +107,7 @@ function PreviewModal({
         </div>
 
         <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="bg-plum-950">
+          <div className="bg-ink-900">
             <img
               src={project.mainImage}
               alt={project.title}
@@ -120,7 +120,7 @@ function PreviewModal({
                     key={`${source}-${index}`}
                     src={source}
                     alt=""
-                    className="aspect-square w-full rounded-md border border-cream/10 object-cover"
+                    className="aspect-square w-full rounded-md border border-white/10 object-cover"
                   />
                 ))}
               </div>

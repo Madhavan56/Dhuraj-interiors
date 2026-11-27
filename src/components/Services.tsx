@@ -93,12 +93,12 @@ export function Services() {
   };
 
   return (
-    <section ref={sectionRef} id="services" className="relative bg-plum-950 py-24 text-cream md:py-32">
+    <section ref={sectionRef} id="services" className="relative bg-cream-deep py-24 text-ink-900 md:py-32">
       {/* Decoration is clipped here, not on the section: an overflow-hidden ancestor
           would stop the sticky photo panel below from sticking while you scroll. */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -right-40 top-0 size-[34rem] rounded-full border border-cream/[0.06]" />
-        <div className="absolute -left-24 bottom-0 size-80 rounded-full border border-cream/[0.05]" />
+        <div className="absolute -right-40 top-0 size-[34rem] rounded-full border border-ink-900/[0.06]" />
+        <div className="absolute -left-24 bottom-0 size-80 rounded-full border border-ink-900/[0.05]" />
       </div>
 
       <div className="container-page relative">
@@ -107,12 +107,12 @@ export function Services() {
             <SectionHeading
               index="02"
               eyebrow="What we do"
-              tone="light"
+              tone="dark"
               title={
                 <>
                   From the first measure
                   <br className="hidden sm:block" /> to the final{" "}
-                  <em className="font-light italic text-brass-300">fit.</em>
+                  <em className="font-light italic text-brass-600">fit.</em>
                 </>
               }
               description="Six services, one team. We design, make and install interiors made for the way you live. Hover a service to see the work."
@@ -122,7 +122,7 @@ export function Services() {
           <Reveal delay={140} className="shrink-0">
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 border-b border-brass-300/50 pb-1 text-xs font-semibold text-brass-300 transition-colors hover:border-cream hover:text-cream"
+              className="inline-flex items-center gap-2 border-b border-brass-600/50 pb-1 text-xs font-semibold text-brass-600 transition-colors hover:border-ink-900 hover:text-ink-900"
             >
               Book a consultation
               <Icon name="arrowRight" className="size-3.5" />
@@ -132,7 +132,7 @@ export function Services() {
 
         <div className="mt-14 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
-            <ul className="border-b border-cream/12">
+            <ul className="border-b border-ink-900/12">
               {services.map((service, index) => {
                 const isActive = active === index;
 
@@ -141,12 +141,12 @@ export function Services() {
                     <div
                       onMouseEnter={() => focusService(index)}
                       onFocus={() => focusService(index)}
-                      className="group border-t border-cream/12 py-6"
+                      className="group border-t border-ink-900/12 py-6"
                     >
                       <div className="flex items-start gap-4 sm:gap-6">
                         <span
                           className={`mt-2.5 text-[0.625rem] tabular-nums tracking-[0.2em] transition-colors duration-700 ${
-                            isActive ? "text-brass-300" : "text-cream/25"
+                            isActive ? "text-brass-600" : "text-ink-900/25"
                           }`}
                         >
                           {String(index + 1).padStart(2, "0")}
@@ -155,12 +155,12 @@ export function Services() {
                         <div className="min-w-0 flex-1">
                           <h3
                             className={`font-display text-[1.45rem] leading-tight transition-colors duration-700 sm:text-[1.65rem] ${
-                              isActive ? "text-brass-300" : "text-cream"
+                              isActive ? "text-brass-600" : "text-ink-950"
                             }`}
                           >
                             {service.title}
                           </h3>
-                          <p className="mt-2 text-[0.8125rem] leading-relaxed text-cream/55">
+                          <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink-700/85">
                             {service.description}
                           </p>
                           <button
@@ -172,7 +172,7 @@ export function Services() {
                                 service.title,
                               )
                             }
-                            className="mt-4 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-brass-300 transition-colors hover:text-cream"
+                            className="mt-4 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-brass-600 transition-colors hover:text-ink-950"
                           >
                             Enquire
                             <Icon name="arrowRight" className="size-3.5" />
@@ -183,7 +183,7 @@ export function Services() {
                           type="button"
                           onClick={() => setViewing(index)}
                           aria-label={`View larger: ${service.title}`}
-                          className="shrink-0 overflow-hidden rounded ring-1 ring-cream/10 transition-transform active:scale-95 lg:hidden"
+                          className="shrink-0 overflow-hidden rounded ring-1 ring-ink-900/10 transition-transform active:scale-95 lg:hidden"
                         >
                           <img
                             src={service.image}
@@ -204,7 +204,7 @@ export function Services() {
           <div className="hidden lg:col-span-5 lg:block">
             <div className="lg:sticky lg:top-24">
               <Reveal delay={120}>
-                <div className="relative aspect-[4/5] max-h-[calc(100svh-8.5rem)] overflow-hidden rounded-lg bg-plum-900 ring-1 ring-cream/10">
+                <div className="relative aspect-[4/5] max-h-[calc(100svh-8.5rem)] overflow-hidden rounded-lg bg-sand ring-1 ring-ink-900/10">
                   {loaded.map((index) => {
                     const service = services[index];
                     return (

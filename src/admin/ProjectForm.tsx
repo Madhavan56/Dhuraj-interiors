@@ -204,7 +204,7 @@ export function ProjectForm({
 
   return (
     <div
-      className="fixed inset-0 z-[110] overflow-y-auto bg-plum-950/70 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-[110] overflow-y-auto bg-ink-950/40 backdrop-blur-sm sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="project-form-title"
@@ -214,7 +214,7 @@ export function ProjectForm({
     >
       <form
         onSubmit={handleSubmit}
-        className="dialog-in mx-auto w-full max-w-4xl bg-cream shadow-2xl sm:rounded-xl"
+        className="dialog-in mx-auto w-full max-w-4xl border border-ink-900/10 bg-cream shadow-[0_40px_90px_-45px_rgba(35,26,18,0.55)] sm:rounded-xl"
       >
         <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-ink-900/10 bg-cream/95 px-5 py-4 backdrop-blur sm:px-7">
           <div>
