@@ -11,28 +11,13 @@ export function Footer() {
           than sitting on it as a panel. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex select-none items-center justify-center gap-4 opacity-[0.055] sm:gap-6 lg:gap-8"
+        className="pointer-events-none absolute inset-0 flex select-none items-center justify-center gap-4 opacity-[0.045] sm:gap-6 lg:gap-8"
       >
-        <svg
-          viewBox="0 0 256 256"
-          fill="none"
-          className="h-16 w-16 shrink-0 text-ink-950 sm:h-24 sm:w-24 lg:h-32 lg:w-32"
-        >
-          <path
-            d="M78 54H118C174 54 208 87 208 128C208 169 174 202 118 202H78"
-            stroke="currentColor"
-            strokeWidth="17"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path d="M78 54V202" stroke="currentColor" strokeWidth="17" strokeLinecap="round" />
-          <path
-            d="M128 202V132C128 113 141 100 159 100C177 100 190 113 190 132V202"
-            stroke="currentColor"
-            strokeWidth="9"
-            strokeLinecap="round"
-          />
-        </svg>
+        <img
+          src="/logo-mark.svg"
+          alt=""
+          className="h-20 w-20 shrink-0 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
+        />
         <span className="whitespace-nowrap font-display text-[clamp(2.25rem,7vw,5.5rem)] leading-[0.9] tracking-[-0.03em] text-ink-950">
           Dhuraj Interiors
         </span>
